@@ -1,4 +1,4 @@
-package nami.program;
+package nami.program.subWindows;
 
 import java.awt.BorderLayout;
 
@@ -8,14 +8,20 @@ import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Window to display the change log
+ * 
+ * @author Tobias Miosczka
+ */
 public class WindowChangelog extends JFrame {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 51999655259994672L;
 	private JPanel contentPane;
 	
+	/**
+	 * Constructor.
+	 * Creates the frame.
+	 */
 	public WindowChangelog() {
 		setType(Type.UTILITY);
 		setResizable(false);
@@ -31,7 +37,7 @@ public class WindowChangelog extends JFrame {
 		JTextPane txtpnBenutzungbenutzernamemitgliedsnummer = new JTextPane();
 		txtpnBenutzungbenutzernamemitgliedsnummer.setBackground(UIManager.getColor("Panel.background"));
 		txtpnBenutzungbenutzernamemitgliedsnummer.setEditable(false);
-		txtpnBenutzungbenutzernamemitgliedsnummer.setText("Changelog\r\n\r\n0.7 \tErste version\r\n1.0 \tAntrag Land hinzugef\u00FCgt\r\n\tAntrag Stadt hinzugef\u00FCgt\r\n1.1\tFormatierungsfehler behoben (utf-8)\r\n1.2\tEingabe der Veranstaltungsdaten verbessert");
+		txtpnBenutzungbenutzernamemitgliedsnummer.setText("Changelog\r\n\r\n0.7 \tErste version\r\n1.0 \tAntrag Land hinzugef\u00FCgt\r\n\tAntrag Stadt hinzugef\u00FCgt\r\n1.1\tFormatierungsfehler behoben (utf-8)");
 		contentPane.add(txtpnBenutzungbenutzernamemitgliedsnummer, BorderLayout.CENTER);
 	}
 

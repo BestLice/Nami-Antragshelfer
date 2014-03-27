@@ -1,4 +1,4 @@
-package nami.program;
+package nami.program.subWindows;
 
 import java.awt.BorderLayout;
 
@@ -8,6 +8,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 
+/**
+ * Window to display the help text
+ * 
+ * @author Tobias Miosczka
+ */
 public class WindowHelp extends JFrame {
 
 	/**
@@ -15,8 +20,10 @@ public class WindowHelp extends JFrame {
 	 */
 	private static final long serialVersionUID = 5550615557031668397L;
 	private JPanel contentPane;
+	
 	/**
-	 * Create the frame.
+	 * Constructor.
+	 * Creates the frame.
 	 */
 	public WindowHelp() {
 		setType(Type.UTILITY);

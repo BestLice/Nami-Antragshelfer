@@ -1,7 +1,6 @@
-package nami.program;
+package nami.program.applicationForms;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +8,8 @@ import java.util.Locale;
 
 import nami.connector.Geschlecht;
 import nami.connector.namitypes.NamiMitglied;
+import nami.program.NamiMitgliedComperable;
+import nami.program.WriterAntrag;
 
 import org.odftoolkit.simple.TextDocument;
 import org.odftoolkit.simple.table.Table;
@@ -21,19 +22,18 @@ public class WriterAntragLand extends WriterAntrag{
 	public static final int MAX_PARTICIPANTS_PER_PAGE = 15;
 
 	public WriterAntragLand(String input, String output, List<NamiMitgliedComperable> participants) throws Exception {
-		super(input, output, participants);
+		super();
+		super.run(input, output, participants);
 	}
 
 	@Override
 	public void doTheMagic(List<NamiMitgliedComperable> participants, TextDocument odtDoc){
+		//Data event	
 
 		//Data participants
 		Table tParticipants = odtDoc.getTableList().get(2);
 		for(int i=0;i<MAX_PARTICIPANTS_PER_PAGE;i++){
 			int row = i+1;
-			if(i==participants.size()){
-				return;
-			}
 			NamiMitglied m = participants.get(i).getNamiMitglied();
 			if(m!=null){
 				//Lfd. Nr.

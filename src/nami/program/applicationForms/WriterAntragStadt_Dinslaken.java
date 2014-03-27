@@ -1,22 +1,27 @@
-package nami.program;
+package nami.program.applicationForms;
 
-import java.util.Date;
 import java.util.List;
 
 import nami.connector.namitypes.NamiMitglied;
+import nami.program.NamiMitgliedComperable;
+import nami.program.WriterAntrag;
 
 import org.odftoolkit.simple.TextDocument;
 import org.odftoolkit.simple.table.Table;
 
 
-public class WriterAntragStadt extends WriterAntrag {
-	
-	public WriterAntragStadt(String input, String output, List<NamiMitgliedComperable> participants) throws Exception {
-		super(input, output, participants);
+public class WriterAntragStadt_Dinslaken extends WriterAntrag {
+
+	public WriterAntragStadt_Dinslaken(String input, String output,List<NamiMitgliedComperable> participants) throws Exception {
+		super();
+		super.run(input, output, participants);
 	}
 
 	@Override
-	public void doTheMagic(List<NamiMitgliedComperable> participants, TextDocument odtDoc){		
+	public void doTheMagic(List<NamiMitgliedComperable> participants, TextDocument odtDoc){	
+		//event data		
+		
+		
 		//participants data
 		Table tParticipants = odtDoc.getTableList().get(0);
 		for(int i=0;i<participants.size();i++){

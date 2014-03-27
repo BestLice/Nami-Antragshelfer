@@ -16,22 +16,32 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
 
 import nami.connector.Mitgliedstyp;
+import nami.program.applicationForms.WriterAntragLand;
+import nami.program.applicationForms.WriterAntragStadt_Dinslaken;
+import nami.program.subWindows.WindowChangelog;
+import nami.program.subWindows.WindowHelp;
+import nami.program.subWindows.WindowLicence;
 
 import java.util.List;
 
 
 
-public class Window implements KeyListener, ActionListener {
+/**
+ * Programs GUI class
+ * 
+ * @author Tobias Miosczka
+ *
+ */
+public class Window implements  ActionListener {
 
 	private JFrame 		frmNami;
 	private JTextField 	tfFirstName,
@@ -74,23 +84,42 @@ public class Window implements KeyListener, ActionListener {
 	
 	private Program program;
 	
+	/**
+	 * returns the GUIs JFrame
+	 * 
+	 * @return JFrame of the GUI
+	 */
 	public JFrame getFrame(){
 		return frmNami;
 	}
 	
+	/**
+	 * returns the GUIs JProgressBar 
+	 * 
+	 * @return GUIs JProgressBar to display progress
+	 */
 	public JProgressBar getProgressBar(){
 		return progressBar;
 	}
 	
+	/**
+	 * Constructor 
+	 * 
+	 * @param program 
+	 * 				program
+	 */
 	public Window(Program program) {
 		this.program = program;
 		initialize();
 	}
 
+	/**
+	 * initializes the GUI
+	 */
 	private void initialize() {
 		frmNami = new JFrame();
 		frmNami.setResizable(false);
-		frmNami.setTitle("Nami Antragshelfer 1.2");
+		frmNami.setTitle("Nami Antragshelfer 1.1");
 		frmNami.setBounds(100, 100, 600, 650);
 		frmNami.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmNami.getContentPane().setLayout(new BoxLayout(frmNami.getContentPane(), BoxLayout.X_AXIS));
@@ -141,6 +170,7 @@ public class Window implements KeyListener, ActionListener {
 		pOptions.setLayout(null);
 		
 		JPanel pLogin = new JPanel();
+		pLogin.setBackground(UIManager.getColor("CheckBox.light"));
 		pLogin.setBounds(10, 10, 180, 100);
 		pOptions.add(pLogin);
 		pLogin.setLayout(null);
@@ -151,11 +181,13 @@ public class Window implements KeyListener, ActionListener {
 		pLogin.add(lblNewLabel);
 		
 		JPanel pLoginForm = new JPanel();
+		pLoginForm.setBackground(UIManager.getColor("CheckBox.light"));
 		pLoginForm.setBounds(0, 25, 180, 50);
 		pLogin.add(pLoginForm);
 		pLoginForm.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JLabel lUsername = new JLabel("Benutzername:");
+		lUsername.setBackground(UIManager.getColor("CheckBox.light"));
 		lUsername.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		pLoginForm.add(lUsername);
 		
@@ -165,6 +197,7 @@ public class Window implements KeyListener, ActionListener {
 		pLoginForm.add(tfUsername);
 		
 		JLabel lPassword = new JLabel("Passwort:");
+		lPassword.setBackground(UIManager.getColor("CheckBox.light"));
 		lPassword.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		pLoginForm.add(lPassword);
 		
@@ -178,6 +211,8 @@ public class Window implements KeyListener, ActionListener {
 		pLogin.add(bLogin);
 		
 		JPanel pFilterOptions = new JPanel();
+		pFilterOptions.setBorder(UIManager.getBorder("Menu.border"));
+		pFilterOptions.setBackground(UIManager.getColor("CheckBox.light"));
 		pFilterOptions.setBounds(10, 175, 180, 275);
 		pOptions.add(pFilterOptions);
 		pFilterOptions.setLayout(null);
@@ -189,26 +224,31 @@ public class Window implements KeyListener, ActionListener {
 		
 		cWoelflinge = new JCheckBox("W\u00F6lflinge");
 		cWoelflinge.addActionListener(this);
+		cWoelflinge.setBackground(UIManager.getColor("CheckBox.light"));
 		cWoelflinge.setSelected(true);
 		pStufe.add(cWoelflinge);
 		
 		cJungpfadfinder = new JCheckBox("Jungpfadfinder");
 		cJungpfadfinder.addActionListener(this);
 		cJungpfadfinder.setSelected(true);
+		cJungpfadfinder.setBackground(UIManager.getColor("CheckBox.light"));
 		pStufe.add(cJungpfadfinder);
 		
 		cPfadfinder = new JCheckBox("Pfadfinder");
 		cPfadfinder.addActionListener(this);
 		cPfadfinder.setSelected(true);
+		cPfadfinder.setBackground(UIManager.getColor("CheckBox.light"));
 		pStufe.add(cPfadfinder);
 		
 		cRover = new JCheckBox("Rover");
 		cRover.addActionListener(this);
 		cRover.setSelected(true);
+		cRover.setBackground(UIManager.getColor("CheckBox.light"));
 		pStufe.add(cRover);
 		
 		cAndere = new JCheckBox("Andere");
 		cAndere.addActionListener(this);
+		cAndere.setBackground(UIManager.getColor("CheckBox.light"));
 		pStufe.add(cAndere);
 		
 		JPanel pName = new JPanel();
@@ -221,7 +261,6 @@ public class Window implements KeyListener, ActionListener {
 		pName.add(lVorname);
 		
 		tfFirstName = new JTextField();
-		tfFirstName.addKeyListener(this);
 		pName.add(tfFirstName);
 		tfFirstName.setColumns(10);
 		
@@ -230,7 +269,6 @@ public class Window implements KeyListener, ActionListener {
 		pName.add(lNachnahme);
 		
 		tfLastName = new JTextField();
-		tfLastName.addKeyListener(this);
 
 		pName.add(tfLastName);
 		tfLastName.setColumns(10);
@@ -321,6 +359,13 @@ public class Window implements KeyListener, ActionListener {
 		listParticipants.setModel(dlmParticipants);
 	}
 	
+	/**
+	 * displays login results
+	 * 
+	 * @param right
+	 * 				true if username/password is correct
+	 * 				false if username/password wrong
+	 */
 	public void showPassResult(boolean right){
 		if(right){
 			tfUsername.setBackground(Color.GREEN);
@@ -332,6 +377,9 @@ public class Window implements KeyListener, ActionListener {
 		}
 	}
 	
+	/**
+	 * updates the member and participants lists and sorts their elements
+	 */
 	public void updateLists(){
 		List<NamiMitgliedComperable> member = program.getMember();
 		List<NamiMitgliedComperable> participants = program.getParticipants();
@@ -374,6 +422,11 @@ public class Window implements KeyListener, ActionListener {
 	}
 
 	
+	/** 
+	 * Listener for all elements of the GUI
+	 * 
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
@@ -396,7 +449,7 @@ public class Window implements KeyListener, ActionListener {
 			String user = tfUsername.getText();
 			String pass = String.copyValueOf(pfPassword.getPassword());
 			program.login(user, pass);
-			program.loadData(progressBar, frmNami);
+			program.loadData(progressBar);
 		}
 		if(source==mntmExit){
 			System.exit(0);
@@ -411,63 +464,34 @@ public class Window implements KeyListener, ActionListener {
 			windowChangelog.setVisible(true);
 		}
 		if(source==mntmAntragLand){
-			doAntragLand();
+			int pages = (int) Math.ceil((double)(program.getParticipants().size())/(double)(WriterAntragLand.MAX_PARTICIPANTS_PER_PAGE));
+			System.out.println(pages);
+			try {
+				for(int i=0;i<pages;i++){
+					int from=i*WriterAntragLand.MAX_PARTICIPANTS_PER_PAGE;
+					int to=((i+1)*WriterAntragLand.MAX_PARTICIPANTS_PER_PAGE);
+					List<NamiMitgliedComperable> sublist;
+					if(program.getParticipants().size()>from){
+						sublist = program.getParticipants().subList(from, to);
+					}else{
+						sublist = program.getParticipants().subList(from, program.getParticipants().size());
+					}
+					@SuppressWarnings("unused")
+					WriterAntragLand w = new WriterAntragLand("Land_Blanco.odt", "Land_Augefüllt_"+String.valueOf(i+1)+".odt", sublist);
+				}				
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
-		
 		if(source==mntmAntragStadt){
-			doAntragStadt();
-		}
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e){
-		updateLists();
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e){
-		updateLists();
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e){
-		updateLists();
-	}
-	
-	private void doAntragStadt(){
-		try {
-			@SuppressWarnings("unused")
-			WriterAntragStadt w = new WriterAntragStadt("Stadt_Blanco.odt", "Stadt_Augefüllt_Alle.odt", program.getParticipants());				
-		} catch (Exception e1) {
-			//datei noch geöffnet
-			progressBar.setString("Datei ist noch geöffnet.");
-			e1.printStackTrace();
-		}
-	}
-	
-	private void doAntragLand(){
-		int pages = (int) Math.ceil((double)(program.getParticipants().size())/(double)(WriterAntragLand.MAX_PARTICIPANTS_PER_PAGE));
-		if(pages==0){
-			//nothing to do in here, just return
-			return;
-		}
-		try {
-			for(int i=0;i<pages;i++){
-				int from=i*WriterAntragLand.MAX_PARTICIPANTS_PER_PAGE;
-				int to=((i+1)*WriterAntragLand.MAX_PARTICIPANTS_PER_PAGE);
-				List<NamiMitgliedComperable> sublist;
-				if(program.getParticipants().size()>to){
-					sublist = program.getParticipants().subList(from, to);
-				}else{
-					sublist = program.getParticipants().subList(from, program.getParticipants().size());
-				}
+			try {
 				@SuppressWarnings("unused")
-				WriterAntragLand w = new WriterAntragLand("Land_Blanco.odt", "Land_Augefüllt_"+String.valueOf(i+1)+".odt", sublist);
-			}				
-		} catch (Exception e1) {
-			//datei noch geöffnet
-			progressBar.setString("Datei ist noch geöffnet.");
-			e1.printStackTrace();
+				WriterAntragStadt_Dinslaken w = new WriterAntragStadt_Dinslaken("Stadt_Blanco.odt", "Stadt_Augefüllt_Alle.odt", program.getParticipants());				
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 }

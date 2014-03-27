@@ -3,12 +3,19 @@ package nami.program;
 import java.util.Collection;
 import java.util.List;
 
+import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
 
 import nami.connector.NamiConnector;
 import nami.connector.namitypes.NamiMitgliedListElement;
 import nami.connector.namitypes.NamiSearchedValues;
 
+/**
+ * Class for downloading Nami data packages in another thread.
+ * 
+ * @author Tobias Miosczka
+ * 
+ */
 class IntegerAndString{
 	private int integer;
 	private String string;
@@ -31,22 +38,30 @@ class DataLoader extends SwingWorker<Void, IntegerAndString>{
 	
 	private NamiConnector con;
 	private List<NamiMitgliedComperable> member;
-	private Window window;
+	private JProgressBar progress;
 	
-	public DataLoader(NamiConnector con, List<NamiMitgliedComperable> member, Window window){
-		this.con=con;
-		this.member=member;
-		this.window=window;
+	public DataLoader(NamiConnector con, List<NamiMitgliedComperable> member, JProgressBar progress){
+		this.con = con;
+		this.member = member;
+		this.progress = progress;
 	}
-
+	
+	/**
+     * Updates the JProgressbar.
+     * 
+     * @param chunks
+     *           	List<IntegerAndString> with information about the progress
+     */
 	@Override
     protected void process(List<IntegerAndString> chunks) {
         IntegerAndString i = chunks.get(chunks.size()-1);
-        window.getProgressBar().setValue(i.getInteger());
-        window.getProgressBar().setString("Lädt "+i.getString()+" "+window.getProgressBar().getValue()+"%");
-        window.updateLists();
+        progress.setValue(i.getInteger());
+        progress.setString("Lädt "+i.getString()+" "+progress.getValue()+"%");
     }
-
+	
+	/**
+     * Lädt alle daten in einem anderem Thread runter.
+     */
 	@Override
 	protected Void doInBackground() throws Exception {
 		double t1=System.currentTimeMillis();

@@ -1,4 +1,4 @@
-package nami.program;
+package nami.program.subWindows;
 
 import java.awt.BorderLayout;
 
@@ -11,12 +11,16 @@ import javax.swing.UIManager;
 public class WindowLicence extends JFrame {
 
 	/**
+	 * Window to display the licence
 	 * 
+	 * @author Tobias Miosczka
 	 */
 	private static final long serialVersionUID = -3638721420122220527L;
 	private JPanel contentPane;
+
 	/**
-	 * Create the frame.
+	 * Constructor.
+	 * Creates the frame.
 	 */
 	public WindowLicence() {
 		setType(Type.UTILITY);

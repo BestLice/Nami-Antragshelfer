@@ -463,22 +463,10 @@ public class Window implements  ActionListener {
 		if(source==mntmChangelog){
 			windowChangelog.setVisible(true);
 		}
-		if(source==mntmAntragLand){
-			int pages = (int) Math.ceil((double)(program.getParticipants().size())/(double)(WriterAntragLand.MAX_PARTICIPANTS_PER_PAGE));
-			System.out.println(pages);
+		if(source==mntmAntragLand){			
 			try {
-				for(int i=0;i<pages;i++){
-					int from=i*WriterAntragLand.MAX_PARTICIPANTS_PER_PAGE;
-					int to=((i+1)*WriterAntragLand.MAX_PARTICIPANTS_PER_PAGE);
-					List<NamiMitgliedComperable> sublist;
-					if(program.getParticipants().size()>from){
-						sublist = program.getParticipants().subList(from, to);
-					}else{
-						sublist = program.getParticipants().subList(from, program.getParticipants().size());
-					}
-					@SuppressWarnings("unused")
-					WriterAntragLand w = new WriterAntragLand("Land_Blanco.odt", "Land_Augefüllt_"+String.valueOf(i+1)+".odt", sublist);
-				}				
+				WriterAntragLand w = new WriterAntragLand();
+				w.run("Land_Blanco.odt", "Land_Ausgefüllt.odt", program.getParticipants());
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -486,8 +474,8 @@ public class Window implements  ActionListener {
 		}
 		if(source==mntmAntragStadt){
 			try {
-				@SuppressWarnings("unused")
-				WriterAntragStadt_Dinslaken w = new WriterAntragStadt_Dinslaken("Stadt_Blanco.odt", "Stadt_Augefüllt_Alle.odt", program.getParticipants());				
+				WriterAntragStadt_Dinslaken w = new WriterAntragStadt_Dinslaken();				
+				w.run("Stadt_Blanco.odt", "Stadt_Augefüllt.odt", program.getParticipants());
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

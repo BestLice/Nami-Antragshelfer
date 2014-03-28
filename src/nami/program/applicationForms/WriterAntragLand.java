@@ -9,7 +9,6 @@ import java.util.Locale;
 import nami.connector.Geschlecht;
 import nami.connector.namitypes.NamiMitglied;
 import nami.program.NamiMitgliedComperable;
-import nami.program.WriterAntrag;
 
 import org.odftoolkit.simple.TextDocument;
 import org.odftoolkit.simple.table.Table;
@@ -17,14 +16,6 @@ import org.odftoolkit.simple.table.Table;
 import com.ibm.icu.text.DateFormat;
 
 public class WriterAntragLand extends WriterAntrag{
-	
-	
-	public static final int MAX_PARTICIPANTS_PER_PAGE = 15;
-
-	public WriterAntragLand(String input, String output, List<NamiMitgliedComperable> participants) throws Exception {
-		super();
-		super.run(input, output, participants);
-	}
 
 	@Override
 	public void doTheMagic(List<NamiMitgliedComperable> participants, TextDocument odtDoc){
@@ -32,7 +23,7 @@ public class WriterAntragLand extends WriterAntrag{
 
 		//Data participants
 		Table tParticipants = odtDoc.getTableList().get(2);
-		for(int i=0;i<MAX_PARTICIPANTS_PER_PAGE;i++){
+		for(int i=0; i<participants.size(); i++){
 			int row = i+1;
 			NamiMitglied m = participants.get(i).getNamiMitglied();
 			if(m!=null){
@@ -75,5 +66,10 @@ public class WriterAntragLand extends WriterAntrag{
 				
 			}
 		}
+	}
+
+	@Override
+	public int getMaxParticipantsPerPage() {
+		return 15;
 	}
 }

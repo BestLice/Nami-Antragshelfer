@@ -4,18 +4,12 @@ import java.util.List;
 
 import nami.connector.namitypes.NamiMitglied;
 import nami.program.NamiMitgliedComperable;
-import nami.program.WriterAntrag;
 
 import org.odftoolkit.simple.TextDocument;
 import org.odftoolkit.simple.table.Table;
 
 
 public class WriterAntragStadt_Dinslaken extends WriterAntrag {
-
-	public WriterAntragStadt_Dinslaken(String input, String output,List<NamiMitgliedComperable> participants) throws Exception {
-		super();
-		super.run(input, output, participants);
-	}
 
 	@Override
 	public void doTheMagic(List<NamiMitgliedComperable> participants, TextDocument odtDoc){	
@@ -49,6 +43,11 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 				}
 			}
 		}
+	}
+
+	@Override
+	public int getMaxParticipantsPerPage() {
+		return 0;
 	}
 
 }

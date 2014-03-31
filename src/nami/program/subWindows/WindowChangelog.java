@@ -37,7 +37,14 @@ public class WindowChangelog extends JFrame {
 		JTextPane txtpnBenutzungbenutzernamemitgliedsnummer = new JTextPane();
 		txtpnBenutzungbenutzernamemitgliedsnummer.setBackground(UIManager.getColor("Panel.background"));
 		txtpnBenutzungbenutzernamemitgliedsnummer.setEditable(false);
-		txtpnBenutzungbenutzernamemitgliedsnummer.setText("Changelog\r\n\r\n0.7 \tErste version\r\n1.0 \tAntrag Land hinzugef\u00FCgt\r\n\tAntrag Stadt hinzugef\u00FCgt\r\n1.1\tFormatierungsfehler behoben (utf-8)");
+		txtpnBenutzungbenutzernamemitgliedsnummer.setText(
+			  "Changelog                                   \r\n"
+			+ "                                            \r\n"
+			+ "0.7 \t Erste version                        \r\n"
+			+ "1.0 \t Antrag Land hinzugef\u00FCgt         \r\n"
+			+ "    \t Antrag Stadt hinzugef\u00FCgt        \r\n"
+			+ "1.1 \t Formatierungsfehler behoben (utf-8)  \r\n"
+			+ "1.3 \t Antragsvorlagen in .jar gespeichert  \r\n");
 		contentPane.add(txtpnBenutzungbenutzernamemitgliedsnummer, BorderLayout.CENTER);
 	}
 

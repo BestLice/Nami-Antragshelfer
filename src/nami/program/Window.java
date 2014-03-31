@@ -119,7 +119,7 @@ public class Window implements  ActionListener {
 	private void initialize() {
 		frmNami = new JFrame();
 		frmNami.setResizable(false);
-		frmNami.setTitle("Nami Antragshelfer 1.1");
+		frmNami.setTitle("Nami Antragshelfer 1.3");
 		frmNami.setBounds(100, 100, 600, 650);
 		frmNami.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmNami.getContentPane().setLayout(new BoxLayout(frmNami.getContentPane(), BoxLayout.X_AXIS));
@@ -465,8 +465,8 @@ public class Window implements  ActionListener {
 		}
 		if(source==mntmAntragLand){			
 			try {
-				WriterAntragLand w = new WriterAntragLand();
-				w.run("Land_Blanco.odt", "Land_Ausgefüllt.odt", program.getParticipants());
+				WriterAntragLand w = new WriterAntragLand(frmNami);
+				w.run("Land_Ausgefüllt.odt", program.getParticipants());
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -474,8 +474,8 @@ public class Window implements  ActionListener {
 		}
 		if(source==mntmAntragStadt){
 			try {
-				WriterAntragStadt_Dinslaken w = new WriterAntragStadt_Dinslaken();				
-				w.run("Stadt_Blanco.odt", "Stadt_Augefüllt.odt", program.getParticipants());
+				WriterAntragStadt_Dinslaken w = new WriterAntragStadt_Dinslaken(frmNami);				
+				w.run("Stadt_Augefüllt.odt", program.getParticipants());
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

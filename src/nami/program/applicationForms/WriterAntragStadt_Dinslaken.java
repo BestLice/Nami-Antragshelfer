@@ -2,6 +2,8 @@ package nami.program.applicationForms;
 
 import java.util.List;
 
+import javax.swing.JFrame;
+
 import nami.connector.namitypes.NamiMitglied;
 import nami.program.NamiMitgliedComperable;
 
@@ -10,6 +12,10 @@ import org.odftoolkit.simple.table.Table;
 
 
 public class WriterAntragStadt_Dinslaken extends WriterAntrag {
+
+	public WriterAntragStadt_Dinslaken(JFrame owner) {
+		super(owner);
+	}
 
 	@Override
 	public void doTheMagic(List<NamiMitgliedComperable> participants, TextDocument odtDoc){	
@@ -48,6 +54,20 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 	@Override
 	public int getMaxParticipantsPerPage() {
 		return 0;
+	}
+
+	@Override
+	protected String getResourceFileName() {
+		return "Stadt_Dinslaken_Blanco.odt";
+	}
+
+	@Override
+	protected void initializeOptions() {
+		// TODO Auto-generated method stub
+		addOption("Art der Maﬂnahme");
+		addOption("Anfangsdatum");
+		addOption("Enddatum");
+		addOption("Ort");
 	}
 
 }

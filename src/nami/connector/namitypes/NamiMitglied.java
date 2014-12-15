@@ -29,36 +29,31 @@ public class NamiMitglied extends NamiAbstractMitglied {
      * Beschreibt die Bankverbindung eines Mitglieds.
      */
     public static class KontoverbindungType {
-        @SuppressWarnings("unused")
 		private String id;
-        @SuppressWarnings("unused")
 		private String mitgliedsNummer;
-
-        @SuppressWarnings("unused")
 		private String kontoinhaber;
-        @SuppressWarnings("unused")
 		private String kontonummer;
-        @SuppressWarnings("unused")
 		private String bankleitzahl;
-        @SuppressWarnings("unused")
 		private String institut;
-
-        @SuppressWarnings("unused")
 		private String iban;
-        @SuppressWarnings("unused")
 		private String bic;
+		
+		public String getId() {return id;}
+		public String getMitgliedsNummer() {return mitgliedsNummer;}
+		public String getKontoinhaber() {return kontoinhaber;}
+		public String getKontonummer() {return kontonummer;}
+		public String getBic() {return bic;}
+		public String getBankleitzahl() {return bankleitzahl;}
+		public String getInstitut() {return institut;}
+		public String getIban() {return iban;}
+
     }
 
     private int id;
     private int mitgliedsNummer;
-
-    @SuppressWarnings("unused")
 	private String beitragsarten;
-    @SuppressWarnings("unused")
 	private Collection<Integer> beitragsartenId;
-    @SuppressWarnings("unused")
 	private String statusId; // ENUM??
-    @SuppressWarnings("unused")
 	private String status; // ENUM?? (z.B. AKTIV)
 
     private String vorname;
@@ -72,66 +67,34 @@ public class NamiMitglied extends NamiAbstractMitglied {
     private String telefax;
     private String email;
     private String emailVertretungsberechtigter;
-
-    @SuppressWarnings("unused")
 	private String staatsangehoerigkeitId; // int?
-    @SuppressWarnings("unused")
 	private String staatsangehoerigkeit;
-    @SuppressWarnings("unused")
 	private String staatsangehoerigkeitText;
-
-    @SuppressWarnings("unused")
 	private String mglTypeId; // ENUM?? z.B. NICHT_MITGLIED
     private String mglType;
-
     private String geburtsDatumFormatted;
-    @SuppressWarnings("unused")
 	private String geburtsDatum;
-
-    @SuppressWarnings("unused")
 	private String regionId; // int? (null möglich)
-    @SuppressWarnings("unused")
 	private String region;
-
-    @SuppressWarnings("unused")
 	private String landId; // int?
-    @SuppressWarnings("unused")
 	private String land;
-
     private String gruppierung;
     private int gruppierungId;
-    // private String ersteUntergliederungId" : null, //?
-    @SuppressWarnings("unused")
-	private String ersteUntergliederung;
-
-    @SuppressWarnings("unused")
+	private String ersteUntergliederung;// private String ersteUntergliederungId" : null, //?
 	private String ersteTaetigkeitId;
-    @SuppressWarnings("unused")
 	private String ersteTaetigkeit;
     private String stufe;
-
-    @SuppressWarnings("unused")
 	private boolean wiederverwendenFlag;
-    @SuppressWarnings("unused")
 	private boolean zeitschriftenversand;
-
-    @SuppressWarnings("unused")
 	private String konfessionId; // int?
-    @SuppressWarnings("unused")
 	private String konfession; // ENUM?
-    @SuppressWarnings("unused")
 	private String geschlechtId;
     private String geschlecht;
 
     private String eintrittsdatum;
-    @SuppressWarnings("unused")
 	private String zahlungsweise;
-    @SuppressWarnings("unused")
 	private int version;
-    @SuppressWarnings("unused")
 	private String lastUpdated;
-
-    @SuppressWarnings("unused")
 	private KontoverbindungType kontoverbindung;
 
     @Override
@@ -326,6 +289,10 @@ public class NamiMitglied extends NamiAbstractMitglied {
 
 	public String getAlterFormatiert() {
 		return geburtsDatumFormatted;
+	}
+
+	public String getGeburtsDatum() {
+		return geburtsDatum;
 	}
 	
 	//autor Tobias Miosczka end

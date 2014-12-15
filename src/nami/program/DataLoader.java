@@ -3,6 +3,7 @@ package nami.program;
 import java.util.Collection;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
 
@@ -70,8 +71,10 @@ class DataLoader extends SwingWorker<Void, IntegerAndString>{
 		int i=0;
 		int items=result.size();
 		for(NamiMitgliedListElement element : result){
-			member.add(new NamiMitgliedComperable(element.getFullData(con)));
+			NamiMitgliedComperable e = new NamiMitgliedComperable(element.getFullData(con));
+			member.add(e);
 			i++;
+			//JOptionPane.showMessageDialog(null, e.getNamiMitglied().getGeburtsDatum());
 			publish(new IntegerAndString((int)(100*i/items), element.getVorname()+" "+element.getNachname()));
 		}
 		publish(new IntegerAndString(100, "Alle Mitglieder geladen. "+(System.currentTimeMillis() - t1)+" ms"));

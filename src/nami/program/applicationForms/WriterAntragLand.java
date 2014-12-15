@@ -1,9 +1,6 @@
 package nami.program.applicationForms;
 
 import java.text.DateFormat;
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,7 +33,6 @@ public class WriterAntragLand extends WriterAntrag{
 		//event data
 		Table tEvent = odtDoc.getTableList().get(1);
 		//Datum (von-bis)
-		System.out.println(getOptionValue(2)+" - "+getOptionValue(3));
 		tEvent.getCellByPosition(1, 0).setStringValue(getOptionValue(2)+" - "+getOptionValue(3));
 		//PLZ Ort
 		tEvent.getCellByPosition(3, 0).setStringValue(getOptionValue(4));
@@ -65,27 +61,27 @@ public class WriterAntragLand extends WriterAntrag{
 					tParticipants.getCellByPosition(4, row).setStringValue("w");
 				}
 				//Alter
+				@SuppressWarnings("unused")
 				DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMAN);
-				Date bd = null;
-				try {
-					bd = df.parse(m.getAlterFormatiert());
-				} catch (ParseException e) {
+				//Date bd = null;
+				//try {
+					//bd = df.parse(m.getAlterFormatiert());
+				//} catch (ParseException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-				Calendar dob = Calendar.getInstance();  
-				dob.setTime(bd);  
-				Calendar today = Calendar.getInstance();  
-				int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);  
-				if (today.get(Calendar.MONTH) < dob.get(Calendar.MONTH)) {
-				  age--;  
-				} else if (today.get(Calendar.MONTH) == dob.get(Calendar.MONTH)
-				    && today.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)) {
-				  age--;  
-				}			
-				tParticipants.getCellByPosition(5, row).setStringValue(String.valueOf(age));			
-				//*
-				
+				//	e.printStackTrace();
+				//}			
+				//Calendar dob = Calendar.getInstance();  
+				//dob.setTime(bd);  
+				//Calendar today = Calendar.getInstance();  
+				//int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);  
+				//if (today.get(Calendar.MONTH) < dob.get(Calendar.MONTH)) {
+				//  age--;  
+				//} else if (today.get(Calendar.MONTH) == dob.get(Calendar.MONTH)
+				//    && today.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)) {
+				//  age--;  
+				//}			
+				//tParticipants.getCellByPosition(5, row).setStringValue(String.valueOf(age));			
+				//*				
 			}
 		}
 	}

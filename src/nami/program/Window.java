@@ -43,6 +43,9 @@ import java.util.List;
  */
 public class Window implements  ActionListener {
 
+	private static final int VERSION_MAJOR = 1;
+	private static final int VERSION_MINOR = 4;
+	
 	private JFrame 		frmNami;
 	private JTextField 	tfFirstName,
 						tfLastName,
@@ -119,7 +122,7 @@ public class Window implements  ActionListener {
 	private void initialize() {
 		frmNami = new JFrame();
 		frmNami.setResizable(false);
-		frmNami.setTitle("Nami Antragshelfer 1.3");
+		frmNami.setTitle("Nami Antragshelfer "+String.valueOf(VERSION_MAJOR)+"."+String.valueOf(VERSION_MINOR)+" BugFix 27.06.2014");
 		frmNami.setBounds(100, 100, 600, 650);
 		frmNami.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmNami.getContentPane().setLayout(new BoxLayout(frmNami.getContentPane(), BoxLayout.X_AXIS));
@@ -430,7 +433,14 @@ public class Window implements  ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		if(source==cWoelflinge||source==cJungpfadfinder||source==cPfadfinder||source==cRover||source==cMitglied||source==cSchnuppermitglied||source==cNichtmitglied){
+		if( source==cWoelflinge||
+			source==cJungpfadfinder||
+			source==cPfadfinder||
+			source==cRover||
+			source==cAndere||
+			source==cMitglied||
+			source==cSchnuppermitglied||
+			source==cNichtmitglied){
 			updateLists();
 		}
 		if(source==bAdd){

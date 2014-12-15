@@ -18,12 +18,16 @@ import java.awt.event.ActionEvent;
 
 public class UserInput implements ActionListener{
 	
-	private class Input{
+	private abstract class Input{
+		
+	}
+	
+	private class Input_Text extends Input{
 		
 		private JLabel label;
 		private JTextField textField;	
 		
-		public Input(JPanel parent, int index, String description){
+		public Input_Text(JPanel parent, int index, String description){
 			label = new JLabel(description+":");
 			textField = new JTextField();
 			
@@ -34,7 +38,7 @@ public class UserInput implements ActionListener{
 			parent.add(textField);			
 		}
 		
-		public Input(JPanel parent, int index, String description, String preview){
+		public Input_Text(JPanel parent, int index, String description, String preview){
 			label = new JLabel(description+":");
 			textField = new JTextField();
 			
@@ -88,13 +92,13 @@ public class UserInput implements ActionListener{
 	}
 	
 	public int addOption(String description){
-		inputs.add(new Input(panel, inputs.size(), description));
+		inputs.add(new Input_Text(panel, inputs.size(), description));
 		dialog.setBounds(0, 0, 400, (inputs.size()*30)+80);
 		return inputs.size()-1;
 	}
 	
 	public int addOption(String description, String preview){
-		inputs.add(new Input(panel, inputs.size(), description, preview));
+		inputs.add(new Input_Text(panel, inputs.size(), description, preview));
 		dialog.setBounds(0, 0, 400, (inputs.size()*30)+80);
 		return inputs.size()-1;
 	}
@@ -109,7 +113,11 @@ public class UserInput implements ActionListener{
 	}
 	
 	public String getOptionValue(int index){
-		return inputs.get(index).getValue();
+		Input i = inputs.get(index);
+		if (i instanceof Input_Text) {
+			return ((Input_Text) inputs.get(index)).getValue();
+		}
+		return null;
 	}
 
 	@Override

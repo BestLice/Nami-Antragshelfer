@@ -38,13 +38,21 @@ public class WindowChangelog extends JFrame {
 		txtpnBenutzungbenutzernamemitgliedsnummer.setBackground(UIManager.getColor("Panel.background"));
 		txtpnBenutzungbenutzernamemitgliedsnummer.setEditable(false);
 		txtpnBenutzungbenutzernamemitgliedsnummer.setText(
-			  "Changelog                                   \r\n"
-			+ "                                            \r\n"
-			+ "0.7 \t Erste version                        \r\n"
-			+ "1.0 \t Antrag Land hinzugef\u00FCgt         \r\n"
-			+ "    \t Antrag Stadt hinzugef\u00FCgt        \r\n"
-			+ "1.1 \t Formatierungsfehler behoben (utf-8)  \r\n"
-			+ "1.3 \t Antragsvorlagen in .jar gespeichert  \r\n");
+			  "Changelog                                   			\r\n"
+			+ "                                            			\r\n"
+			+ "0.7 \t Erste version                        			\r\n"
+			+ "1.0 \t Antrag Land hinzugef\u00FCgt         			\r\n"
+			+ "\t Antrag Stadt hinzugef\u00FCgt      	  			\r\n"
+			+ "1.1 \t Formatierungsfehler behoben (utf-8)  			\r\n"
+			+ "1.3 \t Antragsvorlagen in .jar gespeichert  			\r\n"
+			+ "1.4 \t Antrag an die Stadt Dinslaken aktualisiert	\r\n"
+			+ "\t Unbenutzte externe Librarys entfernt              \r\n"
+			+ "\t ->Größe der .jar um 4/5 reduziert!				\r\n"
+			+ "\t Benutzereingaben zu jedem Antrag hinzugefügt  	\r\n"
+			+ "														\r\n"
+			+ "Bekannte Fehler:										\r\n"
+			+ "														\r\n"
+			+ "Manche Benutzereingaben werden nicht übernommen		\r\n");
 		contentPane.add(txtpnBenutzungbenutzernamemitgliedsnummer, BorderLayout.CENTER);
 	}
 

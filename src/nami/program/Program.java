@@ -1,5 +1,6 @@
 package nami.program;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -67,7 +68,7 @@ public class Program{
 	 * @param progressOut
 	 * 				JProgressbar to display the progress			
 	 */
-	public void loadData(final JProgressBar progressOut){		
+	public void loadData(final Program program){		
 		if(!con.getIsAuthenticated()){
 			return;
 		}
@@ -77,7 +78,7 @@ public class Program{
 		SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-              DataLoader loader=new DataLoader(con, member, window.getProgressBar());
+              DataLoader loader=new DataLoader(program);
               loader.execute();  
             }
         });		
@@ -153,5 +154,13 @@ public class Program{
 	 */	
 	public List<NamiMitgliedComperable> getParticipants(){
 		return participants;
+	}
+	
+	public Window getWindow(){
+		return window;
+	}
+
+	public NamiConnector getConnection() {
+		return con;
 	}
 }

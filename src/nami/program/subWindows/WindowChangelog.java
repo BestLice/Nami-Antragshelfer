@@ -27,7 +27,7 @@ public class WindowChangelog extends JFrame {
 		setResizable(false);
 		setTitle("Hilfe");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 555, 255);
+		setBounds(100, 100, 555, 555);
 		contentPane = new JPanel();
 		contentPane.setToolTipText("Changelog");
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -49,10 +49,12 @@ public class WindowChangelog extends JFrame {
 			+ "\t Unbenutzte externe Librarys entfernt              \r\n"
 			+ "\t ->Größe der .jar um 4/5 reduziert!				\r\n"
 			+ "\t Benutzereingaben zu jedem Antrag hinzugefügt  	\r\n"
-			+ "														\r\n"
-			+ "Bekannte Fehler:										\r\n"
-			+ "														\r\n"
-			+ "Manche Benutzereingaben werden nicht übernommen		\r\n");
+			+ "1.5 \t Bug durch Version 2.1 behoben					\r\n"
+			+ "\t Fehler bei Benutzereingaben und Filter behoben    \r\n"
+			+ "\t                                                   \r\n"
+			+ "Bekannte Fehler:                                     \r\n"
+			+ "\t Das Anfangs- und Enddatum wird bei dem Antrag     \r\n"
+			+ "\t für das Land nicht übernommen.                    \r\n");
 		contentPane.add(txtpnBenutzungbenutzernamemitgliedsnummer, BorderLayout.CENTER);
 	}
 

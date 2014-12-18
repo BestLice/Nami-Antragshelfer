@@ -37,14 +37,10 @@ class IntegerAndString{
 
 class DataLoader extends SwingWorker<Void, IntegerAndString>{
 	
-	private NamiConnector con;
-	private List<NamiMitgliedComperable> member;
-	private JProgressBar progress;
+	private Program program;
 	
-	public DataLoader(NamiConnector con, List<NamiMitgliedComperable> member, JProgressBar progress){
-		this.con = con;
-		this.member = member;
-		this.progress = progress;
+	public DataLoader(Program program){
+		this.program = program;
 	}
 	
 	/**
@@ -56,8 +52,9 @@ class DataLoader extends SwingWorker<Void, IntegerAndString>{
 	@Override
     protected void process(List<IntegerAndString> chunks) {
         IntegerAndString i = chunks.get(chunks.size()-1);
-        progress.setValue(i.getInteger());
-        progress.setString("Lädt "+i.getString()+" "+progress.getValue()+"%");
+        program.getWindow().getProgressBar().setValue(i.getInteger());
+        program.getWindow().getProgressBar().setString("Lädt "+i.getString()+" "+program.getWindow().getProgressBar().getValue()+"%");
+        program.getWindow().updateLists();
     }
 	
 	/**
@@ -67,12 +64,12 @@ class DataLoader extends SwingWorker<Void, IntegerAndString>{
 	protected Void doInBackground() throws Exception {
 		double t1=System.currentTimeMillis();
 		NamiSearchedValues search = new NamiSearchedValues();
-		Collection<NamiMitgliedListElement> result = search.getAllResults(con);
+		Collection<NamiMitgliedListElement> result = search.getAllResults(program.getConnection());
 		int i=0;
 		int items=result.size();
 		for(NamiMitgliedListElement element : result){
-			NamiMitgliedComperable e = new NamiMitgliedComperable(element.getFullData(con));
-			member.add(e);
+			NamiMitgliedComperable e = new NamiMitgliedComperable(element.getFullData(program.getConnection()));
+			program.getMember().add(e);
 			i++;
 			//JOptionPane.showMessageDialog(null, e.getNamiMitglied().getGeburtsDatum());
 			publish(new IntegerAndString((int)(100*i/items), element.getVorname()+" "+element.getNachname()));

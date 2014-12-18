@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -41,10 +43,10 @@ import java.util.List;
  * @author Tobias Miosczka
  *
  */
-public class Window implements  ActionListener {
+public class Window  implements  ActionListener, DocumentListener{
 
 	private static final int VERSION_MAJOR = 1;
-	private static final int VERSION_MINOR = 4;
+	private static final int VERSION_MINOR = 5;
 	
 	private JFrame 		frmNami;
 	private JTextField 	tfFirstName,
@@ -122,7 +124,7 @@ public class Window implements  ActionListener {
 	private void initialize() {
 		frmNami = new JFrame();
 		frmNami.setResizable(false);
-		frmNami.setTitle("Nami Antragshelfer "+String.valueOf(VERSION_MAJOR)+"."+String.valueOf(VERSION_MINOR)+" BugFix 27.06.2014");
+		frmNami.setTitle("Nami Antragshelfer "+String.valueOf(VERSION_MAJOR)+"."+String.valueOf(VERSION_MINOR));
 		frmNami.setBounds(100, 100, 600, 650);
 		frmNami.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmNami.getContentPane().setLayout(new BoxLayout(frmNami.getContentPane(), BoxLayout.X_AXIS));
@@ -137,7 +139,7 @@ public class Window implements  ActionListener {
 		mntmExit.addActionListener(this);
 		mnNewMenu.add(mntmExit);
 		
-		JMenu mAntrag = new JMenu("Antr\u00E4ge");
+		JMenu mAntrag = new JMenu("Anträge");
 		menuBar.add(mAntrag);
 		
 		mntmAntragStadt = new JMenuItem("Antrag an Stadt");
@@ -266,15 +268,16 @@ public class Window implements  ActionListener {
 		tfFirstName = new JTextField();
 		pName.add(tfFirstName);
 		tfFirstName.setColumns(10);
+		tfFirstName.getDocument().addDocumentListener(this);
 		
 		JLabel lNachnahme = new JLabel("Nachnahme:");
 		lNachnahme.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		pName.add(lNachnahme);
 		
 		tfLastName = new JTextField();
-
 		pName.add(tfLastName);
 		tfLastName.setColumns(10);
+		tfLastName.getDocument().addDocumentListener(this);
 		
 		JPanel pAktiv = new JPanel();
 		pAktiv.setBounds(0, 200, 180, 75);
@@ -400,11 +403,15 @@ public class Window implements  ActionListener {
 			boolean bIsPfd = "Pfadfinder".		equals(d.getNamiMitglied().getStufe());
 			boolean bIsRvr = "Rover".			equals(d.getNamiMitglied().getStufe());
 			//check stufe
-			if( (bIsWlf&&bWlf)||
+			if(((bIsWlf&&bWlf)||
 				(bIsJng&&bJng)||
 				(bIsPfd&&bPfd)||
 				(bIsRvr&&bRvr)||
-				(!bIsWlf&&!bIsJng&&!bIsPfd&&!bIsRvr&&bAnd)){
+				(!bIsWlf&&!bIsJng&&!bIsPfd&&!bIsRvr&&bAnd))
+				&&
+				(d.getNamiMitglied().getVorname().toLowerCase().contains(tfFirstName.getText().toLowerCase()))
+				&&
+				(d.getNamiMitglied().getNachname().toLowerCase().contains(tfLastName.getText().toLowerCase()))){
 				//check Aktiv
 				if( (cMitglied.isSelected()			&&d.getNamiMitglied().getMitgliedstyp()==Mitgliedstyp.MITGLIED)||
 					(cSchnuppermitglied.isSelected()&&d.getNamiMitglied().getMitgliedstyp()==Mitgliedstyp.SCHNUPPER_MITGLIED)||
@@ -459,7 +466,7 @@ public class Window implements  ActionListener {
 			String user = tfUsername.getText();
 			String pass = String.copyValueOf(pfPassword.getPassword());
 			program.login(user, pass);
-			program.loadData(progressBar);
+			program.loadData(program);
 		}
 		if(source==mntmExit){
 			System.exit(0);
@@ -491,5 +498,23 @@ public class Window implements  ActionListener {
 				e1.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public void changedUpdate(DocumentEvent e) {
+		// TODO Auto-generated method stub
+		updateLists();
+	}
+
+	@Override
+	public void insertUpdate(DocumentEvent e) {
+		// TODO Auto-generated method stub
+		updateLists();
+	}
+
+	@Override
+	public void removeUpdate(DocumentEvent e) {
+		// TODO Auto-generated method stub
+		updateLists();
 	}
 }

@@ -1,6 +1,10 @@
 package nami.program.applicationForms;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -18,11 +22,12 @@ public class WriterAntragLand extends WriterAntrag{
 
 	public WriterAntragLand(JFrame owner) {
 		super(owner);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void doTheMagic(List<NamiMitgliedComperable> participants, TextDocument odtDoc){
+		SimpleDateFormat sdfUserInput = new SimpleDateFormat("dd.MM.yyyy");		
+		SimpleDateFormat sdfData = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");	
 		//association data
 		Table tAssociation = odtDoc.getTableList().get(0);
 		//Mitgliedsverband
@@ -61,27 +66,24 @@ public class WriterAntragLand extends WriterAntrag{
 					tParticipants.getCellByPosition(4, row).setStringValue("w");
 				}
 				//Alter
-				@SuppressWarnings("unused")
-				DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMAN);
-				//Date bd = null;
-				//try {
-					//bd = df.parse(m.getAlterFormatiert());
-				//} catch (ParseException e) {
-					// TODO Auto-generated catch block
-				//	e.printStackTrace();
-				//}			
-				//Calendar dob = Calendar.getInstance();  
-				//dob.setTime(bd);  
-				//Calendar today = Calendar.getInstance();  
-				//int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);  
-				//if (today.get(Calendar.MONTH) < dob.get(Calendar.MONTH)) {
-				//  age--;  
-				//} else if (today.get(Calendar.MONTH) == dob.get(Calendar.MONTH)
-				//    && today.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)) {
-				//  age--;  
-				//}			
-				//tParticipants.getCellByPosition(5, row).setStringValue(String.valueOf(age));			
-				//*				
+				Date bd = null;
+				try {
+					bd = sdfData.parse(m.getGeburtsDatum());
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}			
+				Calendar dob = Calendar.getInstance();  
+				dob.setTime(bd);  
+				Calendar today = Calendar.getInstance();  
+				int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);  
+				if (today.get(Calendar.MONTH) < dob.get(Calendar.MONTH)) {
+				  age--;  
+				} else if (today.get(Calendar.MONTH) == dob.get(Calendar.MONTH)
+				    && today.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)) {
+				  age--;  
+				}			
+				tParticipants.getCellByPosition(5, row).setStringValue(String.valueOf(age));			
+								
 			}
 		}
 	}

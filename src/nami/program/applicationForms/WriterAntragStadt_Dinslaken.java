@@ -1,5 +1,8 @@
 package nami.program.applicationForms;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -20,23 +23,24 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 	@Override
 	public void doTheMagic(List<NamiMitgliedComperable> participants, TextDocument odtDoc){	
 		//collect data
-		//SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");			
-		//Date start = null;
-		//Date end = null;
-		//try {
-			//start = sdf.parse(getOptionValue(1));
-			//end = sdf.parse(getOptionValue(2));
-		//} catch (ParseException e) {
-			// TODO Auto-generated catch block
+		SimpleDateFormat sdfUserInput = new SimpleDateFormat("dd.MM.yyyy");		
+		SimpleDateFormat sdfData = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");		
+		
+		Date start = null;
+		Date end = null;
+		try {
+			start = sdfUserInput.parse(getOptionValue(1));
+			end = sdfUserInput.parse(getOptionValue(2));
+		} catch (ParseException e) {
 			//wrong input
-			//e.printStackTrace();
-		//}
+			e.printStackTrace();
+		}
 		//event data
 		Table tEvent = odtDoc.getHeader().getTableList().get(0);
 		//Maßnahme
 		tEvent.getCellByPosition(0, 0).setStringValue(tEvent.getCellByPosition(0, 0).getStringValue()+getOptionValue(0));
 		//Datum von bis
-		//tEvent.getCellByPosition(0, 1).setStringValue(tEvent.getCellByPosition(0, 1).getStringValue()+sdf.format(start)+" - "+sdf.format(end));
+		tEvent.getCellByPosition(0, 1).setStringValue(tEvent.getCellByPosition(0, 1).getStringValue()+sdfUserInput.format(start)+" - "+sdfUserInput.format(end));
 		
 		tEvent.getCellByPosition(1, 1).setStringValue(tEvent.getCellByPosition(1, 1).getStringValue()+getOptionValue(3));
 		
@@ -47,14 +51,13 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 			
 			NamiMitglied m = participants.get(i).getNamiMitglied();
 			if(m!=null){
-				//Date birthDate = null;
-				//try {
-				//	birthDate = sdf.parse(m.getAlterFormatiert());
-				//} catch (ParseException e) {
-				//	// TODO Auto-generated catch block
-				//	//should be dead code
-				//	e.printStackTrace();
-				//}
+				Date birthDate = null;
+				try {
+					birthDate = sdfData.parse(m.getGeburtsDatum());
+				} catch (ParseException e) {
+					//should be dead code
+					e.printStackTrace();
+				}
 				
 				//Nr.
 				//tParticipants.getCellByPosition(0, row).setStringValue(String.valueOf(row));
@@ -69,17 +72,17 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 				//Ort
 				tParticipants.getCellByPosition(5, row).setStringValue(m.getOrt());
 				//Geburtsdatum
-				//tParticipants.getCellByPosition(6, row).setStringValue(sdf.format(birthDate));
+				tParticipants.getCellByPosition(6, row).setStringValue(sdfUserInput.format(birthDate));
 				//Alter
 				//compute age
-				//int diffInYearsStart = (int)Math.floor((start.getTime()-birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365.242));
-				//int diffInYearsEnd   = (int)Math.floor((end.getTime()  -birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365.242));
-				//if(diffInYearsEnd>diffInYearsStart){
-					//participant has his/her birthday at the event
-				//	tParticipants.getCellByPosition(7, row).setStringValue(String.valueOf(diffInYearsStart)+"-"+String.valueOf(diffInYearsEnd));
-				//}else{
-				//	tParticipants.getCellByPosition(7, row).setStringValue(String.valueOf(diffInYearsStart));
-				//}
+				int diffInYearsStart = (int)Math.floor((start.getTime()-birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365.242));
+				int diffInYearsEnd   = (int)Math.floor((end.getTime()  -birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365.242));
+				if(diffInYearsEnd>diffInYearsStart){
+				//participant has his/her birthday at the event
+					tParticipants.getCellByPosition(7, row).setStringValue(String.valueOf(diffInYearsStart)+"-"+String.valueOf(diffInYearsEnd));
+				}else{
+					tParticipants.getCellByPosition(7, row).setStringValue(String.valueOf(diffInYearsStart));
+				}
 				if(i<participants.size()-1){
 					//add row if element isnt the last
 					tParticipants.appendRow();

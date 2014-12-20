@@ -21,7 +21,7 @@ import com.google.gson.reflect.TypeToken;
 /**
  * Stellt ein Mitglied der DPSG dar.
  * 
- * @author Fabian Lipp
+ * @author Fabian Lipp, Tobias Miosczka
  * 
  */
 public class NamiMitglied extends NamiAbstractMitglied {
@@ -154,11 +154,11 @@ public class NamiMitglied extends NamiAbstractMitglied {
     }
 
     /**
-     * Gibt die Stammdaten dieses Mitglieds als ausfÃ¼hrlichen Text zurÃ¼ck. Der
-     * RÃ¼ckgabewert enthÃ¤lt also mehr Angaben als die Ausgabe der
+     * Gibt die Stammdaten dieses Mitglieds als ausführlichen Text zurück. Der
+     * Rückgabewert enthält also mehr Angaben als die Ausgabe der
      * <tt>toString</tt>-Method.
      * 
-     * @return fÃ¼r die Ausgabe formatierte Mitgliedsdaten
+     * @return für die Ausgabe formatierte Mitgliedsdaten
      */
     public String toLongString() {
         StringBuilder str = new StringBuilder();
@@ -275,24 +275,209 @@ public class NamiMitglied extends NamiAbstractMitglied {
     }
     
     //autor Tobias Miosczka
+	
+	/**
+	 * @return straße
+	 */
 	public String getStraße() {
 		return strasse;
 	}
-
+	
+	/**
+	 * @return ort
+	 */
 	public String getOrt() {
 		return ort;
 	}
-
+	
+	/**
+	 * @return beitragsartenId
+	 */
 	public String getPLZ() {
 		return plz;
 	}
-
+	
+	/**   TODO: get this working
+	 * @return formattiertes alter
+	 
 	public String getAlterFormatiert() {
 		return geburtsDatumFormatted;
 	}
-
+	*/
+	
+	/**
+	 * @return getGeburtsDatum, yyyy-MM-dd HH:mm:ss
+	 */
 	public String getGeburtsDatum() {
 		return geburtsDatum;
+	}
+
+	/**
+	 * @return beitragsarten
+	 */
+	public String getBeitragsarten() {
+		return beitragsarten;
+	}
+	
+	/**
+	 * @return beitragsartenId
+	 */
+	public Collection<Integer> getBeitragsartenId() {
+		return beitragsartenId;
+	}
+
+	/**
+	 * @return statusId
+	 */
+	public String getStatusId() {
+		return statusId;
+	}
+
+	/**
+	 * @return status
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * @return kontoverbindung
+	 */
+	public KontoverbindungType getKontoverbindung() {
+		return kontoverbindung;
+	}
+
+	/**
+	 * @returnlastUpdated
+	 */
+	public String getLastUpdated() {
+		return lastUpdated;
+	}
+
+	/**
+	 * @return version
+	 */
+	public int getVersion() {
+		return version;
+	}
+
+	/**
+	 * @return zahlungsweise
+	 */
+	public String getZahlungsweise() {
+		return zahlungsweise;
+	}
+
+	/**
+	 * @return geschlechtId
+	 */
+	public String getGeschlechtId() {
+		return geschlechtId;
+	}
+	
+	/**
+	 * @return konfession
+	 */
+	public String getKonfession() {
+		return konfession;
+	}
+
+	/**
+	 * @return konfessionId
+	 */
+	public String getKonfessionId() {
+		return konfessionId;
+	}
+
+	/**
+	 * @return zeitschriftenversand
+	 */
+	public boolean isZeitschriftenversand() {
+		return zeitschriftenversand;
+	}
+
+	/**
+	 * @return wiederverwendenFlag
+	 */
+	public boolean isWiederverwendenFlag() {
+		return wiederverwendenFlag;
+	}
+
+	/**
+	 * @return ersteTaetigkeit
+	 */
+	public String getErsteTaetigkeit() {
+		return ersteTaetigkeit;
+	}
+
+	/**
+	 * @return ersteTaetigkeitId
+	 */
+	public String getErsteTaetigkeitId() {
+		return ersteTaetigkeitId;
+	}
+
+	/**
+	 * @return ersteUntergliederung
+	 */
+	public String getErsteUntergliederung() {
+		return ersteUntergliederung;
+	}
+
+	/**
+	 * @return staatsangehoerigkeitId
+	 */
+	public String getStaatsangehoerigkeitId() {
+		return staatsangehoerigkeitId;
+	}
+
+	/**
+	 * @return staatsangehoerigkeit
+	 */
+	public String getStaatsangehoerigkeit() {
+		return staatsangehoerigkeit;
+	}
+
+	/**
+	 * @return staatsangehoerigkeitText
+	 */
+	public String getStaatsangehoerigkeitText() {
+		return staatsangehoerigkeitText;
+	}
+
+	/**
+	 * @return mglTypeId
+	 */
+	public String getMglTypeId() {
+		return mglTypeId;
+	}
+
+	/**
+	 * @return regionId
+	 */
+	public String getRegionId() {
+		return regionId;
+	}
+
+	/**
+	 * @return region
+	 */
+	public String getRegion() {
+		return region;
+	}
+
+	/**
+	 * @return landId
+	 */
+	public String getLandId() {
+		return landId;
+	}
+
+	/**
+	 * @return land
+	 */
+	public String getLand() {
+		return land;
 	}
 	
 	//autor Tobias Miosczka end

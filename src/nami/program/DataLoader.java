@@ -3,11 +3,8 @@ package nami.program;
 import java.util.Collection;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
 
-import nami.connector.NamiConnector;
 import nami.connector.namitypes.NamiMitgliedListElement;
 import nami.connector.namitypes.NamiSearchedValues;
 

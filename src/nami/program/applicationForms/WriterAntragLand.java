@@ -1,12 +1,10 @@
 package nami.program.applicationForms;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.swing.JFrame;
 
@@ -26,6 +24,7 @@ public class WriterAntragLand extends WriterAntrag{
 
 	@Override
 	public void doTheMagic(List<NamiMitgliedComperable> participants, TextDocument odtDoc){
+		@SuppressWarnings("unused")
 		SimpleDateFormat sdfUserInput = new SimpleDateFormat("dd.MM.yyyy");		
 		SimpleDateFormat sdfData = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");	
 		//association data

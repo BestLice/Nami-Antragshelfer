@@ -47,9 +47,9 @@ public abstract class WriterAntrag {
 		InputStream s = Thread.currentThread().getContextClassLoader().getResourceAsStream("resources/"+getResourceFileName());
 		odtDoc=(TextDocument)TextDocument.loadDocument(s);
 		//manipulate doc
-		Logger.getLogger("org.apache.zookeeper").setLevel(Level.WARNING);
-		Logger.getLogger("org.apache.hadoop.hbase.zookeeper").setLevel(Level.WARNING);
-		Logger.getLogger("org.apache.hadoop.hbase.client").setLevel(Level.WARNING);
+		Logger.getLogger("org.apache.zookeeper").setLevel(Level.OFF);
+		Logger.getLogger("org.apache.hadoop.hbase.zookeeper").setLevel(Level.OFF);
+		Logger.getLogger("org.apache.hadoop.hbase.client").setLevel(Level.OFF);
 		doTheMagic(participants, odtDoc);
 		//output
 		odtDoc.save(output);

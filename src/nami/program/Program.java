@@ -26,6 +26,10 @@ public class Program{
 	private List<NamiMitgliedComperable> member, participants;
 	private Window window;
 	
+	public static void main(String[] args) {		
+		Program program = new Program();
+	}
+	
 	/**
 	 * Constructor for Program
 	 */

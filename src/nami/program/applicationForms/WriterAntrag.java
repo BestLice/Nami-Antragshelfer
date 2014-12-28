@@ -1,6 +1,7 @@
 package nami.program.applicationForms;
 
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,8 +21,11 @@ import org.odftoolkit.simple.TextDocument;
 public abstract class WriterAntrag {
 	
 	private TextDocument odtDoc;
-	private UserInput userInput;
 	private JFrame owner;
+	
+	protected UserInput userInput;
+	
+	protected SimpleDateFormat sdfDB = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");	
 	
 	/**
 	 * Constructor
@@ -47,9 +51,9 @@ public abstract class WriterAntrag {
 		InputStream s = Thread.currentThread().getContextClassLoader().getResourceAsStream("resources/"+getResourceFileName());
 		odtDoc=(TextDocument)TextDocument.loadDocument(s);
 		//manipulate doc
-		Logger.getLogger("org.apache.zookeeper").setLevel(Level.OFF);
-		Logger.getLogger("org.apache.hadoop.hbase.zookeeper").setLevel(Level.OFF);
-		Logger.getLogger("org.apache.hadoop.hbase.client").setLevel(Level.OFF);
+		Logger.getLogger("org.apache.zookeeper").setLevel(Level.WARNING);
+		Logger.getLogger("org.apache.hadoop.hbase.zookeeper").setLevel(Level.WARNING);
+		Logger.getLogger("org.apache.hadoop.hbase.client").setLevel(Level.WARNING);
 		doTheMagic(participants, odtDoc);
 		//output
 		odtDoc.save(output);
@@ -115,34 +119,6 @@ public abstract class WriterAntrag {
 		}
 	}
 	
-	/**
-	 * Adds an option to the application form.
-	 * This option will be set by the user in runtime.
-	 * 
-	 * @param description
-	 * 				description of the option shown in the dialog
-	 * @return
-	 * 				returns the index of the option
-	 */
-	protected int addOption(String description){
-		return userInput.addOption(description);	
-	}
-	
-	protected int addOption(String description, String preview){
-		return userInput.addOption(description, preview);
-	}
-	
-	/**
-	 * Returns value of the option with the given index.
-	 * 
-	 * @param index
-	 * 				index of the option
-	 * @return
-	 * 				value as string
-	 */
-	protected String getOptionValue(int index){
-		return userInput.getOptionValue(index);
-	}
 		
 	/**
 	 * Returns the number of participants on one page of the application form.

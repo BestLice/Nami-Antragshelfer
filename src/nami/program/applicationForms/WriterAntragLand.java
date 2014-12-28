@@ -1,8 +1,6 @@
 package nami.program.applicationForms;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -24,24 +22,23 @@ public class WriterAntragLand extends WriterAntrag{
 
 	@Override
 	public void doTheMagic(List<NamiMitgliedComperable> participants, TextDocument odtDoc){
-		@SuppressWarnings("unused")
-		SimpleDateFormat sdfUserInput = new SimpleDateFormat("dd.MM.yyyy");		
-		SimpleDateFormat sdfData = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");	
 		//association data
 		Table tAssociation = odtDoc.getTableList().get(0);
 		//Mitgliedsverband
-		tAssociation.getCellByPosition(2, 0).setStringValue(getOptionValue(0));
+		tAssociation.getCellByPosition(2, 0).setStringValue(userInput.getOption(0).toString());
 		//Träger
-		tAssociation.getCellByPosition(2, 1).setStringValue(getOptionValue(1));
+		tAssociation.getCellByPosition(2, 1).setStringValue(userInput.getOption(1).toString());
 		
 		//event data
 		Table tEvent = odtDoc.getTableList().get(1);
 		//Datum (von-bis)
-		tEvent.getCellByPosition(1, 0).setStringValue(getOptionValue(2)+" - "+getOptionValue(3));
+		if(!(boolean)userInput.getOption(6).getValue()){
+			tEvent.getCellByPosition(1, 0).setStringValue(userInput.getOption(2).toString()+" - "+userInput.getOption(3).toString());
+		}
 		//PLZ Ort
-		tEvent.getCellByPosition(3, 0).setStringValue(getOptionValue(4));
+		tEvent.getCellByPosition(3, 0).setStringValue(userInput.getOption(4).toString());
 		//Land
-		tEvent.getCellByPosition(5, 0).setStringValue(getOptionValue(5));
+		tEvent.getCellByPosition(5, 0).setStringValue(userInput.getOption(5).toString());
 		
 		//participants data
 		Table tParticipants = odtDoc.getTableList().get(2);
@@ -65,24 +62,22 @@ public class WriterAntragLand extends WriterAntrag{
 					tParticipants.getCellByPosition(4, row).setStringValue("w");
 				}
 				//Alter
-				Date bd = null;
-				try {
-					bd = sdfData.parse(m.getGeburtsDatum());
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}			
-				Calendar dob = Calendar.getInstance();  
-				dob.setTime(bd);  
-				Calendar today = Calendar.getInstance();  
-				int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);  
-				if (today.get(Calendar.MONTH) < dob.get(Calendar.MONTH)) {
-				  age--;  
-				} else if (today.get(Calendar.MONTH) == dob.get(Calendar.MONTH)
-				    && today.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)) {
-				  age--;  
-				}			
-				tParticipants.getCellByPosition(5, row).setStringValue(String.valueOf(age));			
-								
+				if(!(boolean)userInput.getOption(6).getValue()){
+					try {					
+						//compute age
+						Date birthDate = sdfDB.parse(m.getGeburtsDatum());
+						int diffInYearsStart = (int)Math.floor((((Date) userInput.getOption(2).getValue()).getTime()-birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365.242));
+						int diffInYearsEnd   = (int)Math.floor((((Date) userInput.getOption(3).getValue()).getTime()-birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365.242));
+						if(diffInYearsEnd>diffInYearsStart){
+						//participant has his/her birthday at the event
+							tParticipants.getCellByPosition(5, row).setStringValue(String.valueOf(diffInYearsStart)+"-"+String.valueOf(diffInYearsEnd));
+						}else{
+							tParticipants.getCellByPosition(5, row).setStringValue(String.valueOf(diffInYearsStart));
+						}
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		}
 	}
@@ -99,11 +94,12 @@ public class WriterAntragLand extends WriterAntrag{
 
 	@Override
 	protected void initializeOptions() {
-		addOption("Mitgliedsverband", "DPSG Diözesanverband Münster");
-		addOption("Träger", "BDKJ Stadtverband Dinslaken");	
-		addOption("Anfangsdatum");
-		addOption("Enddatum");
-		addOption("PLZ Ort", "46535 Dinslaken");
-		addOption("Land", "Deutschland");
+		userInput.addStringOption("Mitgliedsverband", "DPSG Diözesanverband Münster");	//0
+		userInput.addStringOption("Träger", "BDKJ Stadtverband Dinslaken");				//1
+		userInput.addDateOption("Anfangsdatum", new Date());							//2
+		userInput.addDateOption("Enddatum", new Date());								//3
+		userInput.addStringOption("PLZ Ort", "46535 Dinslaken");						//4
+		userInput.addStringOption("Land", "Deutschland");								//5
+		userInput.addBooleanOption("Datum freilassen", false);							//6
 	}
 }

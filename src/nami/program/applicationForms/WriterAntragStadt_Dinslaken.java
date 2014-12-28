@@ -22,27 +22,18 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 
 	@Override
 	public void doTheMagic(List<NamiMitgliedComperable> participants, TextDocument odtDoc){	
-		//collect data
-		SimpleDateFormat sdfUserInput = new SimpleDateFormat("dd.MM.yyyy");		
-		SimpleDateFormat sdfData = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");		
+		//collect data	
+		SimpleDateFormat sdfOutput = new SimpleDateFormat("dd.MM.yyyy");
 		
-		Date start = null;
-		Date end = null;
-		try {
-			start = sdfUserInput.parse(getOptionValue(1));
-			end = sdfUserInput.parse(getOptionValue(2));
-		} catch (ParseException e) {
-			//wrong input
-			e.printStackTrace();
-		}
 		//event data
 		Table tEvent = odtDoc.getHeader().getTableList().get(0);
 		//Maßnahme
-		tEvent.getCellByPosition(0, 0).setStringValue(tEvent.getCellByPosition(0, 0).getStringValue()+getOptionValue(0));
+		tEvent.getCellByPosition(0, 0).setStringValue(userInput.getOption(0).toString());
 		//Datum von bis
-		tEvent.getCellByPosition(0, 1).setStringValue(tEvent.getCellByPosition(0, 1).getStringValue()+sdfUserInput.format(start)+" - "+sdfUserInput.format(end));
-		
-		tEvent.getCellByPosition(1, 1).setStringValue(tEvent.getCellByPosition(1, 1).getStringValue()+getOptionValue(3));
+		if(!(boolean)userInput.getOption(4).getValue()){
+			tEvent.getCellByPosition(0, 1).setStringValue(userInput.getOption(1)+" - "+userInput.getOption(2));
+			tEvent.getCellByPosition(1, 1).setStringValue(userInput.getOption(3).toString());
+		}
 		
 		//participants data
 		Table tParticipants = odtDoc.getTableList().get(0);
@@ -53,7 +44,7 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 			if(m!=null){
 				Date birthDate = null;
 				try {
-					birthDate = sdfData.parse(m.getGeburtsDatum());
+					birthDate = sdfDB.parse(m.getGeburtsDatum());
 				} catch (ParseException e) {
 					//should be dead code
 					e.printStackTrace();
@@ -72,21 +63,24 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 				//Ort
 				tParticipants.getCellByPosition(5, row).setStringValue(m.getOrt());
 				//Geburtsdatum
-				tParticipants.getCellByPosition(6, row).setStringValue(sdfUserInput.format(birthDate));
-				//Alter
-				//compute age
-				int diffInYearsStart = (int)Math.floor((start.getTime()-birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365.242));
-				int diffInYearsEnd   = (int)Math.floor((end.getTime()  -birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365.242));
-				if(diffInYearsEnd>diffInYearsStart){
-				//participant has his/her birthday at the event
-					tParticipants.getCellByPosition(7, row).setStringValue(String.valueOf(diffInYearsStart)+"-"+String.valueOf(diffInYearsEnd));
-				}else{
-					tParticipants.getCellByPosition(7, row).setStringValue(String.valueOf(diffInYearsStart));
+				if(!(boolean)userInput.getOption(4).getValue()){
+					tParticipants.getCellByPosition(6, row).setStringValue(sdfOutput.format(birthDate));
+					//Alter
+					//compute age
+					int diffInYearsStart = (int)Math.floor((((Date) userInput.getOption(1).getValue()).getTime()-birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365.242));
+					int diffInYearsEnd   = (int)Math.floor((((Date) userInput.getOption(2).getValue()).getTime()-birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365.242));
+					if(diffInYearsEnd>diffInYearsStart){
+					//participant has his/her birthday at the event
+						tParticipants.getCellByPosition(7, row).setStringValue(String.valueOf(diffInYearsStart)+"-"+String.valueOf(diffInYearsEnd));
+					}else{
+						tParticipants.getCellByPosition(7, row).setStringValue(String.valueOf(diffInYearsStart));
+					}
 				}
 				if(i<participants.size()-1){
 					//add row if element isnt the last
 					tParticipants.appendRow();
 				}
+				
 			}
 		}
 	}
@@ -104,10 +98,11 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 	@Override
 	protected void initializeOptions() {
 		// TODO Auto-generated method stub
-		addOption("Art der Maßnahme");
-		addOption("Anfangsdatum");
-		addOption("Enddatum");
-		addOption("Ort");
+		userInput.addStringOption("Art der Maßnahme", "");		//0
+		userInput.addDateOption("Anfangsdatum", new Date());	//1
+		userInput.addDateOption("Enddatum", new Date());		//2
+		userInput.addStringOption("Ort", "");					//3
+		userInput.addBooleanOption("Datum freilassen", false);	//4
 	}
 
 }

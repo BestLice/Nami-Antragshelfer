@@ -52,6 +52,7 @@ public class Window  implements  ActionListener, DocumentListener{
 	private JTextField 	tfFirstName,
 						tfLastName,
 						tfUsername;
+	private JLabel      lbUser;
 		
 	private JCheckBox 	cWoelflinge,
 						cJungpfadfinder,
@@ -313,6 +314,10 @@ public class Window  implements  ActionListener, DocumentListener{
 		progressBar.setBounds(10, 114, 180, 14);
 		pOptions.add(progressBar);
 		
+		lbUser = new JLabel();
+		lbUser.setBounds(10, 128, 180, 14);
+		pOptions.add(lbUser);
+		
 		JPanel pListFiltered = new JPanel();
 		pAll.add(pListFiltered);
 		pListFiltered.setLayout(null);
@@ -371,11 +376,14 @@ public class Window  implements  ActionListener, DocumentListener{
 	 * @param right
 	 * 				true if username/password is correct
 	 * 				false if username/password wrong
+	 * @param user 
 	 */
-	public void showPassResult(boolean right){
+	public void showPassResult(boolean right, String user){
 		if(right){
 			tfUsername.setBackground(Color.GREEN);
 			pfPassword.setBackground(Color.GREEN);
+			progressBar.setString("");
+			lbUser.setText("Angemeldet als "+user);
 		}else{
 			tfUsername.setBackground(Color.RED);
 			pfPassword.setBackground(Color.RED);
@@ -485,7 +493,6 @@ public class Window  implements  ActionListener, DocumentListener{
 				WriterAntragLand w = new WriterAntragLand(frmNami);
 				w.run("Land_Ausgefüllt.odt", program.getParticipants());
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
@@ -494,7 +501,6 @@ public class Window  implements  ActionListener, DocumentListener{
 				WriterAntragStadt_Dinslaken w = new WriterAntragStadt_Dinslaken(frmNami);				
 				w.run("Stadt_Augefüllt.odt", program.getParticipants());
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
@@ -502,19 +508,16 @@ public class Window  implements  ActionListener, DocumentListener{
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
-		// TODO Auto-generated method stub
 		updateLists();
 	}
 
 	@Override
 	public void insertUpdate(DocumentEvent e) {
-		// TODO Auto-generated method stub
 		updateLists();
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
-		// TODO Auto-generated method stub
 		updateLists();
 	}
 }

@@ -27,6 +27,7 @@ public class Program{
 	private Window window;
 	
 	public static void main(String[] args) {		
+		@SuppressWarnings("unused")
 		Program program = new Program();
 	}
 	
@@ -53,10 +54,9 @@ public class Program{
 		con = new NamiConnector(NamiServer.LIVESERVER, credentials);
 		try {
 			con.namiLogin();
-			window.showPassResult(true);
+			window.showPassResult(true, user);
 		} catch (NamiLoginException e) {
-			window.showPassResult(false);
-			e.printStackTrace();
+			window.showPassResult(false, user);
 		} catch (IOException e) {
 			window.getProgressBar().setString("Keine Verbindung zur Nami.");
 			e.printStackTrace();

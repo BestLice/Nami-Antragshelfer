@@ -1,11 +1,13 @@
 package nami.program.applicationForms;
 
+import java.io.File;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
 import nami.program.NamiMitgliedComperable;
@@ -56,7 +58,11 @@ public abstract class WriterAntrag {
 		Logger.getLogger("org.apache.hadoop.hbase.client").setLevel(Level.WARNING);
 		doTheMagic(participants, odtDoc);
 		//output
-		odtDoc.save(output);
+		JFileChooser fc = new JFileChooser();
+		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		fc.setSelectedFile(new File(output));
+		fc.showDialog(null, "Speichern");
+		odtDoc.save(fc.getSelectedFile().getAbsolutePath());
 	}
 	
 	/**

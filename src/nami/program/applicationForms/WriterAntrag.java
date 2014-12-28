@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import nami.program.NamiMitgliedComperable;
 
@@ -97,6 +98,7 @@ public abstract class WriterAntrag {
 		if(pages==0){
 			//no pages to export
 			System.out.println("No participants were selected. Select at least one participant to export an application form.");
+			JOptionPane.showMessageDialog(null, "Es wurden keine Teilnehmer ausgewählt.");
 			return;
 		}
 		System.out.println("Application form ''"+getResourceFileName()+"''(pages: "+String.valueOf(pages)+") will be exported.");

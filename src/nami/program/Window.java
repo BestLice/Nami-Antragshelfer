@@ -490,16 +490,14 @@ public class Window  implements  ActionListener, DocumentListener{
 		}
 		if(source==mntmAntragLand){			
 			try {
-				WriterAntragLand w = new WriterAntragLand(frmNami);
-				w.run("Land_Ausgefüllt.odt", program.getParticipants());
+				new WriterAntragLand(frmNami).run("Land_Ausgefüllt.odt", program.getParticipants());
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		}
 		if(source==mntmAntragStadt){
 			try {
-				WriterAntragStadt_Dinslaken w = new WriterAntragStadt_Dinslaken(frmNami);				
-				w.run("Stadt_Augefüllt.odt", program.getParticipants());
+				new WriterAntragStadt_Dinslaken(frmNami).run("Stadt_Augefüllt.odt", program.getParticipants());
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}

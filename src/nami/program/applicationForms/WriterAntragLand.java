@@ -32,7 +32,7 @@ public class WriterAntragLand extends WriterAntrag{
 		//event data
 		Table tEvent = odtDoc.getTableList().get(1);
 		//Datum (von-bis)
-		if(!(boolean)userInput.getOption(6).getValue()){
+		if(!(Boolean)userInput.getOption(6).getValue()){
 			tEvent.getCellByPosition(1, 0).setStringValue(userInput.getOption(2).toString()+" - "+userInput.getOption(3).toString());
 		}
 		//PLZ Ort
@@ -62,7 +62,7 @@ public class WriterAntragLand extends WriterAntrag{
 					tParticipants.getCellByPosition(4, row).setStringValue("w");
 				}
 				//Alter
-				if(!(boolean)userInput.getOption(6).getValue()){
+				if(!(Boolean)userInput.getOption(6).getValue()){
 					try {					
 						//compute age
 						Date birthDate = sdfDB.parse(m.getGeburtsDatum());

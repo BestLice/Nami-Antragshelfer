@@ -30,7 +30,7 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 		//Maﬂnahme
 		tEvent.getCellByPosition(0, 0).setStringValue(userInput.getOption(0).toString());
 		//Datum von bis
-		if(!(boolean)userInput.getOption(4).getValue()){
+		if(!(Boolean)userInput.getOption(4).getValue()){
 			tEvent.getCellByPosition(0, 1).setStringValue(userInput.getOption(1)+" - "+userInput.getOption(2));
 			tEvent.getCellByPosition(1, 1).setStringValue(userInput.getOption(3).toString());
 		}
@@ -63,7 +63,7 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 				//Ort
 				tParticipants.getCellByPosition(5, row).setStringValue(m.getOrt());
 				//Geburtsdatum
-				if(!(boolean)userInput.getOption(4).getValue()){
+				if(!(Boolean)userInput.getOption(4).getValue()){
 					tParticipants.getCellByPosition(6, row).setStringValue(sdfOutput.format(birthDate));
 					//Alter
 					//compute age

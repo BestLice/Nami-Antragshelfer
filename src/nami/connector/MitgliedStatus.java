@@ -22,24 +22,26 @@ public enum MitgliedStatus {
     /**
      * Setzt einen String in den entsprechenden Mitgliedstyp um.
      * 
+     * Edit Tobias Miosczka: Code updated to be compatible with JRE 1.6
+     * 
      * @param str
      *            String-Repräsentation des Mitgliedstyps
      * @return entsprechender Mitgliedstyp; <code>null</code>, wenn der String
      *         nicht umgesetzt werden kann
      */
     public static MitgliedStatus fromString(String str) {
-        switch (str) {
-        case "Aktiv":
-        case "AKTIV":
-            return AKTIV;
-        case "inaktiv":
-        case "INAKTIV":
-            return INAKTIV;
-        case "":
-            return null;
-        default:
-            throw new IllegalArgumentException(
-                    "Unexpected String for MitgliedStatus: " + str);
-        }
+    	if(str == null){
+    		return null;
+    	}
+    	if(str.equalsIgnoreCase("aktiv")){
+    		return AKTIV;
+    	}
+    	if(str.equalsIgnoreCase("inaktiv")){
+    		return INAKTIV;
+    	}
+    	if(str.equalsIgnoreCase("")){
+    		return null;
+    	}
+    	throw new IllegalArgumentException("Unexpected String for MitgliedStatus: " + str);
     }
 }

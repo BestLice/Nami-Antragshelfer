@@ -175,7 +175,7 @@ public class NamiMitglied extends NamiAbstractMitglied {
                 this.value = value;
             }
         }
-        List<Row> rows = new LinkedList<>();
+        List<Row> rows = new LinkedList<Row>();
         rows.add(new Row("Nachname", nachname));
         rows.add(new Row("Vorname", vorname));
         rows.add(new Row("Straße", strasse));

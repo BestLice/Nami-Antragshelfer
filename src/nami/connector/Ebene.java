@@ -82,6 +82,8 @@ public enum Ebene {
     /**
      * Setzt einen String in die entsprechende Ebene um.
      * 
+     * Edit Tobias Miosczka: Code updated to be compatible with JRE 1.6
+     * 
      * @param str
      *            String-ReprÃ¤sentation der Ebene
      * @return entsprechende Ebene; <code>null</code>, wenn der String nicht
@@ -91,18 +93,18 @@ public enum Ebene {
         if (str == null) {
             return null;
         }
-
-        switch (str) {
-        case "stamm":
-            return STAMM;
-        case "bezirk":
-            return BEZIRK;
-        case "dioezese":
-            return DIOEZESE;
-        case "bund":
-            return BUND;
-        default:
-            return null;
+        if(str.equalsIgnoreCase("stamm")){
+        	return STAMM;
         }
+        if(str.equalsIgnoreCase("bezirk")){
+        	return BEZIRK;
+        }
+        if(str.equalsIgnoreCase("dioezese")||str.equalsIgnoreCase("diözese")){
+        	return DIOEZESE;
+        }
+        if(str.equalsIgnoreCase("bund")){
+        	return BUND;
+        }
+        return null;
     }
 }

@@ -30,6 +30,7 @@ import nami.connector.Mitgliedstyp;
 import nami.connector.namitypes.NamiMitglied;
 import nami.program.applicationForms.WriterAntragLand;
 import nami.program.applicationForms.WriterAntragStadt_Dinslaken;
+import nami.program.applicationForms.WriterNotfallliste;
 import nami.program.subWindows.WindowChangelog;
 import nami.program.subWindows.WindowHelp;
 import nami.program.subWindows.WindowLicence;
@@ -76,6 +77,7 @@ public class Window  implements  ActionListener, DocumentListener{
 						mntmLicence,
 						mntmAntragStadt,
 						mntmAntragLand,
+						mntmNotfallliste,
 						mntmChangelog;
 	
 	private JPasswordField	pfPassword;
@@ -152,6 +154,10 @@ public class Window  implements  ActionListener, DocumentListener{
 		mntmAntragLand = new JMenuItem("Antrag an Land");
 		mAntrag.add(mntmAntragLand);
 		mntmAntragLand.addActionListener(this);
+		
+		mntmNotfallliste = new JMenuItem("Notfallliste");
+		mAntrag.add(mntmNotfallliste);
+		mntmNotfallliste.addActionListener(this);
 		
 		JMenu mHelp = new JMenu("Hilfe");
 		menuBar.add(mHelp);
@@ -440,7 +446,6 @@ public class Window  implements  ActionListener, DocumentListener{
 		}
 	}
 
-	
 	/** 
 	 * Listener for all elements of the GUI
 	 * 
@@ -499,6 +504,13 @@ public class Window  implements  ActionListener, DocumentListener{
 		if(source==mntmAntragStadt){
 			try {
 				new WriterAntragStadt_Dinslaken(frmNami).run("Stadt_Augefüllt.odt", program.getParticipants());
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		if(source==mntmNotfallliste){
+			try {
+				new WriterNotfallliste(frmNami).run("Notfallliste.odt", program.getParticipants());
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}

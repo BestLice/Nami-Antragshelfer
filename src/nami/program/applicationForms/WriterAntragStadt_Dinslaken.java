@@ -62,8 +62,9 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 				//Ort
 				tParticipants.getCellByPosition(5, row).setStringValue(m.getOrt());
 				//Geburtsdatum
+				tParticipants.getCellByPosition(6, row).setStringValue(sdfOutput.format(birthDate));
+				//Alter
 				if(!(Boolean)userInput.getOption(4).getValue()){
-					tParticipants.getCellByPosition(6, row).setStringValue(sdfOutput.format(birthDate));
 					//Alter
 					//compute age
 					int diffInYearsStart = (int)Math.floor((((Date) userInput.getOption(1).getValue()).getTime()-birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365.242));

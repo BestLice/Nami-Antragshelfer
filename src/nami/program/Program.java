@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 
+import org.apache.http.auth.Credentials;
+
 import nami.connector.NamiConnector;
 import nami.connector.NamiServer;
 import nami.connector.credentials.NamiCredentials;
@@ -23,7 +25,6 @@ import nami.connector.namitypes.NamiMitglied;
 public class Program{
 	
 	private NamiConnector 	con;
-	private NamiCredentials 	credentials;
 	private List<NamiMitglied> member, participants;
 	private Window window;
 	
@@ -51,7 +52,7 @@ public class Program{
 	 * 				valid password
 	 */
 	public void login(String user, String pass){
-		credentials = new NamiCredentials(user, pass);
+		NamiCredentials credentials = new NamiCredentials(user, pass);
 		con = new NamiConnector(NamiServer.LIVESERVER, credentials);
 		try {
 			con.namiLogin();

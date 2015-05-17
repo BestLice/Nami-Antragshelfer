@@ -229,6 +229,9 @@ public class UserInput implements ActionListener{
 	}
 	
 	public boolean showModal(){
+		if(getOptionCount() == 0){
+			return true;
+		}
 		dialog.setVisible(true);
 		return isOK;
 	}
@@ -263,5 +266,9 @@ public class UserInput implements ActionListener{
 			isOK = false;
 			dialog.setVisible(false);
 		}
+	}
+
+	public int getOptionCount() {
+		return inputList.size();
 	}
 }

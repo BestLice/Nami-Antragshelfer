@@ -56,6 +56,10 @@ public class WindowChangelog extends JFrame {
 			+ "\t Speicherort eines Antrags kann nun selbst bestimmt\r\n"
 			+ "\t werden.                                           \r\n"
 			+ "\t                                                   \r\n"
+			+ "1.7 \t Funktion zur Erstellung von Notfalllisten     \r\n"
+			+ "\t hinzugefügt.                                      \r\n"
+			+ "\t Bugfixes.                                         \r\n"
+			+ "\t                                                   \r\n"
 			+ "Bekannte Fehler:                                     \r\n"
 			+ "\t Das Anfangs- und Enddatum wird bei dem Antrag     \r\n"
 			+ "\t für das Land nicht übernommen.                    \r\n");

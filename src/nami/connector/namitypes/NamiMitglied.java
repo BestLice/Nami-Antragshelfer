@@ -479,7 +479,23 @@ public class NamiMitglied extends NamiAbstractMitglied implements Comparable<Nam
 	public String getLand() {
 		return land;
 	}
+	
+	public String getTelefon1(){
+		return telefon1;
+	}
 
+	public String getTelefon2(){
+		return telefon2;
+	}
+	
+	public String getTelefon3(){
+		return telefon3;
+	}
+	
+	public String getTelefax(){
+		return telefax;
+	}
+	
 	@Override
 	public int compareTo(NamiMitglied other) {
 		return (getVorname() + getNachname()).compareTo(other.getVorname() + other.getNachname());

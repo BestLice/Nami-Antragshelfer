@@ -49,7 +49,7 @@ import java.util.List;
 public class Window  implements  ActionListener, DocumentListener{
 
 	private static final int VERSION_MAJOR = 1;
-	private static final int VERSION_MINOR = 6;
+	private static final int VERSION_MINOR = 7;
 	
 	private JFrame 		frmNami;
 	private JTextField 	tfFirstName,
@@ -312,7 +312,7 @@ public class Window  implements  ActionListener, DocumentListener{
 		lblFilter.setBounds(64, 0, 46, 25);
 		pFilterOptions.add(lblFilter);
 		
-		JLabel lCopyRight = new JLabel("(c) Tobias Miosczka 2014");
+		JLabel lCopyRight = new JLabel("(c) Tobias Miosczka 2013 - 2015");
 		lCopyRight.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lCopyRight.setBounds(10, 576, 178, 14);
 		pOptions.add(lCopyRight);

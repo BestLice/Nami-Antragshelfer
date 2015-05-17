@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.SwingWorker;
 
+import nami.connector.namitypes.NamiMitglied;
 import nami.connector.namitypes.NamiMitgliedListElement;
 import nami.connector.namitypes.NamiSearchedValues;
 
@@ -65,7 +66,7 @@ class DataLoader extends SwingWorker<Void, IntegerAndString>{
 		int i=0;
 		int items=result.size();
 		for(NamiMitgliedListElement element : result){
-			NamiMitgliedComperable e = new NamiMitgliedComperable(element.getFullData(program.getConnection()));
+			NamiMitglied e = element.getFullData(program.getConnection());
 			program.getMember().add(e);
 			i++;
 			//JOptionPane.showMessageDialog(null, e.getNamiMitglied().getGeburtsDatum());

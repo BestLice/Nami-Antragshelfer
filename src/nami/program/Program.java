@@ -12,6 +12,7 @@ import nami.connector.NamiConnector;
 import nami.connector.NamiServer;
 import nami.connector.credentials.NamiCredentials;
 import nami.connector.exception.NamiLoginException;
+import nami.connector.namitypes.NamiMitglied;
 
 /**
  * Program
@@ -23,7 +24,7 @@ public class Program{
 	
 	private NamiConnector 	con;
 	private NamiCredentials 	credentials;
-	private List<NamiMitgliedComperable> member, participants;
+	private List<NamiMitglied> member, participants;
 	private Window window;
 	
 	public static void main(String[] args) {		
@@ -37,8 +38,8 @@ public class Program{
 	public Program(){
 		window = new Window(this);
 		window.getFrame().setVisible(true);
-		member = new ArrayList<NamiMitgliedComperable>();
-		participants = new ArrayList<NamiMitgliedComperable>();
+		member = new ArrayList<NamiMitglied>();
+		participants = new ArrayList<NamiMitglied>();
 	}
 	
 	/**
@@ -107,7 +108,7 @@ public class Program{
 	 * @param n
 	 * 				object in member list
 	 */
-	public void putMemberToParticipants(NamiMitgliedComperable n){
+	public void putMemberToParticipants(NamiMitglied n){
 		int index=member.indexOf(n);
 		participants.add(member.get(index));
 		member.remove(index);
@@ -132,7 +133,7 @@ public class Program{
 	 * @param n
 	 * 				object in member list
 	 */
-	public void putParticipantToMember(NamiMitgliedComperable n){
+	public void putParticipantToMember(NamiMitglied n){
 		int index=participants.indexOf(n);
 		member.add(participants.get(index));
 		participants.remove(index);
@@ -145,7 +146,7 @@ public class Program{
 	 * @return
 	 * 				member list
 	 */
-	public List<NamiMitgliedComperable> getMember(){
+	public List<NamiMitglied> getMember(){
 		return member;
 	}
 	
@@ -155,7 +156,7 @@ public class Program{
 	 * @return
 	 * 				participants list
 	 */	
-	public List<NamiMitgliedComperable> getParticipants(){
+	public List<NamiMitglied> getParticipants(){
 		return participants;
 	}
 	

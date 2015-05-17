@@ -11,7 +11,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import nami.program.NamiMitgliedComperable;
+import nami.connector.namitypes.NamiMitglied;
 
 import org.odftoolkit.simple.TextDocument;
 
@@ -49,7 +49,7 @@ public abstract class WriterAntrag {
 	 * @throws Exception
 	 * 				
 	 */
-	private void runOneDoc(String output, List<NamiMitgliedComperable> participants) throws Exception{
+	private void runOneDoc(String output, List<NamiMitglied> participants) throws Exception{
 		//input		
 		InputStream s = Thread.currentThread().getContextClassLoader().getResourceAsStream("resources/"+getResourceFileName());
 		odtDoc=(TextDocument)TextDocument.loadDocument(s);
@@ -93,7 +93,7 @@ public abstract class WriterAntrag {
 	 * @throws Exception
 	 * 				
 	 */	
-	public void run(String output, List<NamiMitgliedComperable> participants) throws Exception{
+	public void run(String output, List<NamiMitglied> participants) throws Exception{
 		int pages = (int) Math.ceil((double)(participants.size())/(double)(getMaxParticipantsPerPage()));
 		if(pages==0){
 			//no pages to export
@@ -144,7 +144,7 @@ public abstract class WriterAntrag {
 	 * @param odtDoc
 	 * 				document object
 	 */	
-	public abstract void doTheMagic(List<NamiMitgliedComperable> participants, TextDocument odtDoc);
+	public abstract void doTheMagic(List<NamiMitglied> participants, TextDocument odtDoc);
 		
 	/**
 	 * returns resource file name as a string. the resource files saved in "/resources"

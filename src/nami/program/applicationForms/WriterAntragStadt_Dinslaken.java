@@ -8,7 +8,6 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import nami.connector.namitypes.NamiMitglied;
-import nami.program.NamiMitgliedComperable;
 
 import org.odftoolkit.simple.TextDocument;
 import org.odftoolkit.simple.table.Table;
@@ -21,7 +20,7 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 	}
 
 	@Override
-	public void doTheMagic(List<NamiMitgliedComperable> participants, TextDocument odtDoc){	
+	public void doTheMagic(List<NamiMitglied> participants, TextDocument odtDoc){	
 		//collect data	
 		SimpleDateFormat sdfOutput = new SimpleDateFormat("dd.MM.yyyy");
 		
@@ -40,7 +39,7 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 		for(int i=0;i<participants.size();i++){
 			int row = i+1;
 			
-			NamiMitglied m = participants.get(i).getNamiMitglied();
+			NamiMitglied m = participants.get(i);
 			if(m!=null){
 				Date birthDate = null;
 				try {

@@ -24,7 +24,7 @@ import com.google.gson.reflect.TypeToken;
  * @author Fabian Lipp, Tobias Miosczka
  * 
  */
-public class NamiMitglied extends NamiAbstractMitglied {
+public class NamiMitglied extends NamiAbstractMitglied implements Comparable<NamiMitglied>{
     /**
      * Beschreibt die Bankverbindung eines Mitglieds.
      */
@@ -178,7 +178,7 @@ public class NamiMitglied extends NamiAbstractMitglied {
         List<Row> rows = new LinkedList<Row>();
         rows.add(new Row("Nachname", nachname));
         rows.add(new Row("Vorname", vorname));
-        rows.add(new Row("Stra√üe", strasse));
+        rows.add(new Row("Straﬂe", strasse));
         rows.add(new Row("PLZ, Ort", plz + " " + ort));
         rows.add(new Row("E-Mail", email));
         rows.add(new Row("E-Mail Vertr.", emailVertretungsberechtigter));
@@ -479,6 +479,15 @@ public class NamiMitglied extends NamiAbstractMitglied {
 	public String getLand() {
 		return land;
 	}
+
+	@Override
+	public int compareTo(NamiMitglied other) {
+		return (getVorname() + getNachname()).compareTo(other.getVorname() + other.getNachname());
+	}
 	
+	@Override
+	public String toString(){
+		return getVorname() + " " + getNachname();
+	}
 	//autor Tobias Miosczka end
 }

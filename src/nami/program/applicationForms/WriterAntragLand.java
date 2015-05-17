@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 
 import nami.connector.Geschlecht;
 import nami.connector.namitypes.NamiMitglied;
-import nami.program.NamiMitgliedComperable;
 
 import org.odftoolkit.simple.TextDocument;
 import org.odftoolkit.simple.table.Table;
@@ -21,7 +20,7 @@ public class WriterAntragLand extends WriterAntrag{
 	}
 
 	@Override
-	public void doTheMagic(List<NamiMitgliedComperable> participants, TextDocument odtDoc){
+	public void doTheMagic(List<NamiMitglied> participants, TextDocument odtDoc){
 		//association data
 		Table tAssociation = odtDoc.getTableList().get(0);
 		//Mitgliedsverband
@@ -44,7 +43,7 @@ public class WriterAntragLand extends WriterAntrag{
 		Table tParticipants = odtDoc.getTableList().get(2);
 		for(int i=0; i<participants.size(); i++){
 			int row = i+1;
-			NamiMitglied m = participants.get(i).getNamiMitglied();
+			NamiMitglied m = participants.get(i);
 			if(m!=null){
 				//Lfd. Nr.
 				

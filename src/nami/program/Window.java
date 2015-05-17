@@ -27,12 +27,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import nami.connector.Mitgliedstyp;
+import nami.connector.namitypes.NamiMitglied;
 import nami.program.applicationForms.WriterAntragLand;
 import nami.program.applicationForms.WriterAntragStadt_Dinslaken;
 import nami.program.subWindows.WindowChangelog;
 import nami.program.subWindows.WindowHelp;
 import nami.program.subWindows.WindowLicence;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -78,11 +80,11 @@ public class Window  implements  ActionListener, DocumentListener{
 	
 	private JPasswordField	pfPassword;
 	
-	private JList<NamiMitgliedComperable>			listFiltered,
-													listParticipants;
+	private JList<NamiMitglied>			listFiltered,
+										listParticipants;
 	
-	private DefaultListModel<NamiMitgliedComperable> 	dlmFiltered,
-														dlmParticipants;
+	private DefaultListModel<NamiMitglied> 	dlmFiltered,
+											dlmParticipants;
 	
 	private WindowHelp windowHelp = new WindowHelp();
 	private WindowLicence windowLicence = new WindowLicence();
@@ -333,7 +335,7 @@ public class Window  implements  ActionListener, DocumentListener{
 		bAdd.setBounds(10, 566, 178, 23);
 		pListFiltered.add(bAdd);
 		
-		listFiltered = new JList<NamiMitgliedComperable>();
+		listFiltered = new JList<NamiMitglied>();
 		listFiltered.setBounds(0, 35, 200, 525);
 		
 		JScrollPane spListFiltered = new JScrollPane();
@@ -356,7 +358,7 @@ public class Window  implements  ActionListener, DocumentListener{
 		bRemove.setBounds(10, 566, 178, 23);
 		panel_1.add(bRemove);
 		
-		listParticipants = new JList<NamiMitgliedComperable>();
+		listParticipants = new JList<NamiMitglied>();
 		listParticipants.setBounds(0, 35, 200, 525);
 		
 		JScrollPane spListParticipants = new JScrollPane();
@@ -364,8 +366,8 @@ public class Window  implements  ActionListener, DocumentListener{
 		spListParticipants.setViewportView(listParticipants);
 		panel_1.add(spListParticipants);
 		
-		dlmFiltered = new DefaultListModel<NamiMitgliedComperable>();
-		dlmParticipants = new DefaultListModel<NamiMitgliedComperable>();
+		dlmFiltered = new DefaultListModel<NamiMitglied>();
+		dlmParticipants = new DefaultListModel<NamiMitglied>();
 		listFiltered.setModel(dlmFiltered);
 		listParticipants.setModel(dlmParticipants);
 	}
@@ -395,8 +397,10 @@ public class Window  implements  ActionListener, DocumentListener{
 	 * updates the member and participants lists and sorts their elements
 	 */
 	public void updateLists(){
-		List<NamiMitgliedComperable> member = program.getMember();
-		List<NamiMitgliedComperable> participants = program.getParticipants();
+		List<NamiMitglied> member = program.getMember();
+		List<NamiMitglied> participants = program.getParticipants();
+		Collections.sort(member);
+		Collections.sort(participants);
 		//listFiltered
 		boolean bWlf = cWoelflinge.isSelected();
 		boolean bJng = cJungpfadfinder.isSelected();
@@ -405,28 +409,25 @@ public class Window  implements  ActionListener, DocumentListener{
 		boolean bAnd = cAndere.isSelected();
 		
 		dlmFiltered.removeAllElements();
-		for(NamiMitgliedComperable d : member){
-			boolean bIsWlf = "Wölfling".		equals(d.getNamiMitglied().getStufe());
-			boolean bIsJng = "Jungpfadfinder".	equals(d.getNamiMitglied().getStufe());
-			boolean bIsPfd = "Pfadfinder".		equals(d.getNamiMitglied().getStufe());
-			boolean bIsRvr = "Rover".			equals(d.getNamiMitglied().getStufe());
+		for(NamiMitglied d : member){
+			boolean bIsWlf = "Wölfling".		equals(d.getStufe());
+			boolean bIsJng = "Jungpfadfinder".	equals(d.getStufe());
+			boolean bIsPfd = "Pfadfinder".		equals(d.getStufe());
+			boolean bIsRvr = "Rover".			equals(d.getStufe());
 			//check stufe
 			if(((bIsWlf&&bWlf)||
 				(bIsJng&&bJng)||
 				(bIsPfd&&bPfd)||
 				(bIsRvr&&bRvr)||
 				(!bIsWlf&&!bIsJng&&!bIsPfd&&!bIsRvr&&bAnd))
-				&&
-				(d.getNamiMitglied().getVorname().toLowerCase().contains(tfFirstName.getText().toLowerCase()))
-				&&
-				(d.getNamiMitglied().getNachname().toLowerCase().contains(tfLastName.getText().toLowerCase()))){
+				){
 				//check Aktiv
-				if( (cMitglied.isSelected()			&&d.getNamiMitglied().getMitgliedstyp()==Mitgliedstyp.MITGLIED)||
-					(cSchnuppermitglied.isSelected()&&d.getNamiMitglied().getMitgliedstyp()==Mitgliedstyp.SCHNUPPER_MITGLIED)||
-					(cNichtmitglied.isSelected()	&&d.getNamiMitglied().getMitgliedstyp()==Mitgliedstyp.NICHT_MITGLIED)){
+				if( (cMitglied.isSelected()			&&d.getMitgliedstyp()==Mitgliedstyp.MITGLIED)||
+					(cSchnuppermitglied.isSelected()&&d.getMitgliedstyp()==Mitgliedstyp.SCHNUPPER_MITGLIED)||
+					(cNichtmitglied.isSelected()	&&d.getMitgliedstyp()==Mitgliedstyp.NICHT_MITGLIED)){
 					//check Name
-					if((d.getNamiMitglied().getVorname().contains(tfFirstName.getText()))&&
-						d.getNamiMitglied().getNachname().contains(tfLastName.getText())){
+					if((d.getVorname().toLowerCase().contains(tfFirstName.getText().toLowerCase()))&&
+						d.getNachname().toLowerCase().contains(tfLastName.getText().toLowerCase())){
 						dlmFiltered.addElement(d);
 					}
 				}
@@ -434,7 +435,7 @@ public class Window  implements  ActionListener, DocumentListener{
 		}
 		//listParticipants
 		dlmParticipants.removeAllElements();
-		for(NamiMitgliedComperable d : participants){
+		for(NamiMitglied d : participants){
 			dlmParticipants.addElement(d);
 		}
 	}
@@ -459,13 +460,13 @@ public class Window  implements  ActionListener, DocumentListener{
 			updateLists();
 		}
 		if(source==bAdd){
-			for(NamiMitgliedComperable nm : listFiltered.getSelectedValuesList()){
+			for(NamiMitglied nm : listFiltered.getSelectedValuesList()){
 				program.putMemberToParticipants(nm);
 			}
 			updateLists();
 		}
 		if(source==bRemove){
-			for(NamiMitgliedComperable nm : listParticipants.getSelectedValuesList()){
+			for(NamiMitglied nm : listParticipants.getSelectedValuesList()){
 				program.putParticipantToMember(nm);
 			}
 			updateLists();

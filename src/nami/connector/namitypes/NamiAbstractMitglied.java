@@ -42,7 +42,7 @@ public abstract class NamiAbstractMitglied {
             throws NamiApiException, IOException;
 
     @Override
-    public final String toString() {
+    public String toString() {
         return String.format("%-6d %s %s [%s]", getMitgliedsnummer(),
                 getVorname(), getNachname(), getGruppierung());
     }

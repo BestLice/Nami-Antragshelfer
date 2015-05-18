@@ -25,7 +25,7 @@ public class WriterAntragLand extends WriterAntrag{
 		Table tAssociation = odtDoc.getTableList().get(0);
 		//Mitgliedsverband
 		tAssociation.getCellByPosition(2, 0).setStringValue(userInput.getOption(0).toString());
-		//Träger
+		//Trï¿½ger
 		tAssociation.getCellByPosition(2, 1).setStringValue(userInput.getOption(1).toString());
 		
 		//event data
@@ -51,9 +51,9 @@ public class WriterAntragLand extends WriterAntrag{
 					
 				//Name, Vorname
 				tParticipants.getCellByPosition(2, row).setStringValue(m.getNachname()+", "+m.getVorname());
-				//Anschrift: Straße, PLZ, Wohnort
-				tParticipants.getCellByPosition(3, row).setStringValue(m.getStraße()+", "+m.getPLZ()+", "+m.getOrt());
-				//w=weibl. m=männl.
+				//Anschrift: Straï¿½e, PLZ, Wohnort
+				tParticipants.getCellByPosition(3, row).setStringValue(m.getStrasse()+", "+m.getPLZ()+", "+m.getOrt());
+				//w=weibl. m=mï¿½nnl.
 				if(m.getGeschlecht()==Geschlecht.MAENNLICH){
 					tParticipants.getCellByPosition(4, row).setStringValue("m");
 				}
@@ -93,8 +93,8 @@ public class WriterAntragLand extends WriterAntrag{
 
 	@Override
 	protected void initializeOptions() {
-		userInput.addStringOption("Mitgliedsverband", "DPSG Diözesanverband Münster");	//0
-		userInput.addStringOption("Träger", "BDKJ Stadtverband Dinslaken");				//1
+		userInput.addStringOption("Mitgliedsverband", "DPSG Diï¿½zesanverband Mï¿½nster");	//0
+		userInput.addStringOption("Trï¿½ger", "BDKJ Stadtverband Dinslaken");				//1
 		userInput.addDateOption("Anfangsdatum", new Date());							//2
 		userInput.addDateOption("Enddatum", new Date());								//3
 		userInput.addStringOption("PLZ Ort", "46535 Dinslaken");						//4

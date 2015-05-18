@@ -26,7 +26,7 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 		
 		//event data
 		Table tEvent = odtDoc.getHeader().getTableList().get(0);
-		//Maßnahme
+		//Maï¿½nahme
 		tEvent.getCellByPosition(0, 0).setStringValue(userInput.getOption(0).toString());
 		//Datum von bis
 		if(!(Boolean)userInput.getOption(4).getValue()){
@@ -56,7 +56,7 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 				//Vornahme
 				tParticipants.getCellByPosition(2, row).setStringValue(m.getVorname());
 				//Strasse
-				tParticipants.getCellByPosition(3, row).setStringValue(m.getStraße());
+				tParticipants.getCellByPosition(3, row).setStringValue(m.getStrasse());
 				//PLZ
 				tParticipants.getCellByPosition(4, row).setStringValue(m.getPLZ());
 				//Ort
@@ -98,7 +98,7 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 	@Override
 	protected void initializeOptions() {
 		// TODO Auto-generated method stub
-		userInput.addStringOption("Art der Maßnahme", "");		//0
+		userInput.addStringOption("Art der Maï¿½nahme", "");		//0
 		userInput.addDateOption("Anfangsdatum", new Date());	//1
 		userInput.addDateOption("Enddatum", new Date());		//2
 		userInput.addStringOption("Ort", "");					//3

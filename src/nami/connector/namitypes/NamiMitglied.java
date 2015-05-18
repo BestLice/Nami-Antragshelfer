@@ -74,7 +74,7 @@ public class NamiMitglied extends NamiAbstractMitglied implements Comparable<Nam
     private String mglType;
     private String geburtsDatumFormatted;
 	private String geburtsDatum;
-	private String regionId; // int? (null möglich)
+	private String regionId; // int? (null mÃ¶glich)
 	private String region;
 	private String landId; // int?
 	private String land;
@@ -154,11 +154,11 @@ public class NamiMitglied extends NamiAbstractMitglied implements Comparable<Nam
     }
 
     /**
-     * Gibt die Stammdaten dieses Mitglieds als ausf�hrlichen Text zur�ck. Der
-     * R�ckgabewert enth�lt also mehr Angaben als die Ausgabe der
+     * Gibt die Stammdaten dieses Mitglieds als ausfï¿½hrlichen Text zurï¿½ck. Der
+     * Rï¿½ckgabewert enthï¿½lt also mehr Angaben als die Ausgabe der
      * <tt>toString</tt>-Method.
      * 
-     * @return f�r die Ausgabe formatierte Mitgliedsdaten
+     * @return fï¿½r die Ausgabe formatierte Mitgliedsdaten
      */
     public String toLongString() {
         StringBuilder str = new StringBuilder();
@@ -178,7 +178,7 @@ public class NamiMitglied extends NamiAbstractMitglied implements Comparable<Nam
         List<Row> rows = new LinkedList<Row>();
         rows.add(new Row("Nachname", nachname));
         rows.add(new Row("Vorname", vorname));
-        rows.add(new Row("Stra�e", strasse));
+        rows.add(new Row("StraÃŸe", strasse));
         rows.add(new Row("PLZ, Ort", plz + " " + ort));
         rows.add(new Row("E-Mail", email));
         rows.add(new Row("E-Mail Vertr.", emailVertretungsberechtigter));
@@ -277,9 +277,9 @@ public class NamiMitglied extends NamiAbstractMitglied implements Comparable<Nam
     //autor Tobias Miosczka
 	
 	/**
-	 * @return stra�e
+	 * @return straÃŸe
 	 */
-	public String getStra�e() {
+	public String getStrasse() {
 		return strasse;
 	}
 	

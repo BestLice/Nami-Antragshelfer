@@ -35,14 +35,14 @@ public class WriterNotfallliste extends WriterAntrag{
 				//Telefonnummern
 				//TODO:Magic Code to seperate all phone numbers
 				
-				tParticipants.getCellByPosition(2, row).setStringValue(m.getTelefon1() + " \n" + m.getTelefon2() + " \n" + m.getTelefon3() + " \n" + m.getTelefax());
+				tParticipants.getCellByPosition(2, row).setStringValue(m.getTelefon1() + " " + m.getTelefon2() + " " + m.getTelefon3() + " " + m.getTelefax());
 				
 				//Stadt
 				tParticipants.getCellByPosition(3, row).setStringValue(m.getOrt());
 				//PLZ
 				tParticipants.getCellByPosition(4, row).setStringValue(m.getPLZ());
-				//Straße
-				tParticipants.getCellByPosition(5, row).setStringValue(m.getStraße());
+				//Straï¿½e
+				tParticipants.getCellByPosition(5, row).setStringValue(m.getStrasse());
 				//Geburtsdatum
 				SimpleDateFormat sdfOutput = new SimpleDateFormat("dd.MM.yyyy");
 				Date birthDate = null;

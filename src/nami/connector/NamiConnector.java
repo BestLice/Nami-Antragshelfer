@@ -292,7 +292,7 @@ public class NamiConnector {
     }
 
     /**
-     * Liefert einen URIBuilder für den NaMi-Server dieser Connection.
+     * Liefert einen URIBuilder fï¿½r den NaMi-Server dieser Connection.
      * 
      * @param path
      *            Pfad, der aufgerufen wird

@@ -99,7 +99,7 @@ public enum Ebene {
         if(str.equalsIgnoreCase("bezirk")){
         	return BEZIRK;
         }
-        if(str.equalsIgnoreCase("dioezese")||str.equalsIgnoreCase("diözese")){
+        if(str.equalsIgnoreCase("dioezese")||str.equalsIgnoreCase("diÃ¶zese")){
         	return DIOEZESE;
         }
         if(str.equalsIgnoreCase("bund")){

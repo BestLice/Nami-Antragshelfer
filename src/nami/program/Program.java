@@ -2,13 +2,12 @@ package nami.program;
 
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
-
-import org.apache.http.auth.Credentials;
 
 import nami.connector.NamiConnector;
 import nami.connector.NamiServer;
@@ -29,6 +28,21 @@ public class Program{
 	private Window window;
 	
 	public static void main(String[] args) {		
+		System.setProperty("file.encoding","UTF-8");
+		java.lang.reflect.Field charset;
+		try {
+			charset = Charset.class.getDeclaredField("defaultCharset");
+			charset.setAccessible(true);
+			charset.set(null,null);
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		@SuppressWarnings("unused")
 		Program program = new Program();
 	}

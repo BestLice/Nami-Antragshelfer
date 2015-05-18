@@ -1,5 +1,6 @@
 package nami.program;
 
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,7 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -23,6 +23,7 @@ import javax.swing.event.DocumentListener;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -35,6 +36,8 @@ import nami.program.subWindows.WindowChangelog;
 import nami.program.subWindows.WindowHelp;
 import nami.program.subWindows.WindowLicence;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,8 +51,8 @@ import java.util.List;
  */
 public class Window  implements  ActionListener, DocumentListener{
 
-	private static final int VERSION_MAJOR = 1;
-	private static final int VERSION_MINOR = 7;
+	private static final int VERSION_MAJOR = 2;
+	private static final int VERSION_MINOR = 0;
 	
 	private JFrame 		frmNami;
 	private JTextField 	tfFirstName,
@@ -133,6 +136,18 @@ public class Window  implements  ActionListener, DocumentListener{
 		frmNami.setBounds(100, 100, 600, 650);
 		frmNami.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmNami.getContentPane().setLayout(new BoxLayout(frmNami.getContentPane(), BoxLayout.X_AXIS));
+				
+		try {
+			InputStream s = Thread.currentThread().getContextClassLoader().getResourceAsStream("resources/Lilie.gif");
+			Image icon = ImageIO.read(s);
+			frmNami.setIconImage(icon);
+		} catch (IOException e) {
+			System.out.println("Icon couldn't be loaded.");
+			e.printStackTrace();
+		}
+		
+		
+		
 		
 		JMenuBar menuBar = new JMenuBar();
 		frmNami.setJMenuBar(menuBar);
@@ -144,7 +159,7 @@ public class Window  implements  ActionListener, DocumentListener{
 		mntmExit.addActionListener(this);
 		mnNewMenu.add(mntmExit);
 		
-		JMenu mAntrag = new JMenu("Anträge");
+		JMenu mAntrag = new JMenu("AntrÃ¤ge");
 		menuBar.add(mAntrag);
 		
 		mntmAntragStadt = new JMenuItem("Antrag an Stadt");
@@ -190,7 +205,6 @@ public class Window  implements  ActionListener, DocumentListener{
 		pLogin.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Login");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel.setBounds(69, 0, 46, 25);
 		pLogin.add(lblNewLabel);
 		
@@ -202,7 +216,6 @@ public class Window  implements  ActionListener, DocumentListener{
 		
 		JLabel lUsername = new JLabel("Benutzername:");
 		lUsername.setBackground(UIManager.getColor("CheckBox.light"));
-		lUsername.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		pLoginForm.add(lUsername);
 		
 		tfUsername = new JTextField();
@@ -212,7 +225,6 @@ public class Window  implements  ActionListener, DocumentListener{
 		
 		JLabel lPassword = new JLabel("Passwort:");
 		lPassword.setBackground(UIManager.getColor("CheckBox.light"));
-		lPassword.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		pLoginForm.add(lPassword);
 		
 		pfPassword = new JPasswordField();
@@ -236,7 +248,7 @@ public class Window  implements  ActionListener, DocumentListener{
 		pFilterOptions.add(pStufe);
 		pStufe.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		cWoelflinge = new JCheckBox("W\u00F6lflinge");
+		cWoelflinge = new JCheckBox("WÃ¶lflinge");
 		cWoelflinge.addActionListener(this);
 		cWoelflinge.setBackground(UIManager.getColor("CheckBox.light"));
 		cWoelflinge.setSelected(true);
@@ -271,7 +283,6 @@ public class Window  implements  ActionListener, DocumentListener{
 		pName.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JLabel lVorname = new JLabel("Vorname:");
-		lVorname.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		pName.add(lVorname);
 		
 		tfFirstName = new JTextField();
@@ -280,7 +291,6 @@ public class Window  implements  ActionListener, DocumentListener{
 		tfFirstName.getDocument().addDocumentListener(this);
 		
 		JLabel lNachnahme = new JLabel("Nachnahme:");
-		lNachnahme.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		pName.add(lNachnahme);
 		
 		tfLastName = new JTextField();
@@ -308,12 +318,11 @@ public class Window  implements  ActionListener, DocumentListener{
 		pAktiv.add(cNichtmitglied);
 		
 		JLabel lblFilter = new JLabel("Filter");
-		lblFilter.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblFilter.setBounds(64, 0, 46, 25);
 		pFilterOptions.add(lblFilter);
 		
 		JLabel lCopyRight = new JLabel("(c) Tobias Miosczka 2013 - 2015");
-		lCopyRight.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lCopyRight.setFont(new Font("Arial", Font.PLAIN, 11));
 		lCopyRight.setBounds(10, 576, 178, 14);
 		pOptions.add(lCopyRight);
 		
@@ -331,12 +340,10 @@ public class Window  implements  ActionListener, DocumentListener{
 		pListFiltered.setLayout(null);
 		
 		JLabel lblMitglieder = new JLabel("Mitglieder");
-		lblMitglieder.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMitglieder.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblMitglieder.setBounds(0, 10, 200, 25);
 		pListFiltered.add(lblMitglieder);
 		
-		bAdd = new JButton("Hinzuf\u00FCgen =>");
+		bAdd = new JButton("HinzufÃ¼gen =>");
 		bAdd.addActionListener(this);
 		bAdd.setBounds(10, 566, 178, 23);
 		pListFiltered.add(bAdd);
@@ -354,8 +361,6 @@ public class Window  implements  ActionListener, DocumentListener{
 		panel_1.setLayout(null);
 		
 		JLabel lblTeilnehmer = new JLabel("Teilnehmer");
-		lblTeilnehmer.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTeilnehmer.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblTeilnehmer.setBounds(0, 10, 200, 25);
 		panel_1.add(lblTeilnehmer);
 		
@@ -416,7 +421,7 @@ public class Window  implements  ActionListener, DocumentListener{
 		
 		dlmFiltered.removeAllElements();
 		for(NamiMitglied d : member){
-			boolean bIsWlf = "Wölfling".		equals(d.getStufe());
+			boolean bIsWlf = "WÃ¶lfling".		equals(d.getStufe());
 			boolean bIsJng = "Jungpfadfinder".	equals(d.getStufe());
 			boolean bIsPfd = "Pfadfinder".		equals(d.getStufe());
 			boolean bIsRvr = "Rover".			equals(d.getStufe());
@@ -477,9 +482,7 @@ public class Window  implements  ActionListener, DocumentListener{
 			updateLists();
 		}
 		if(source==bLogin||source==tfUsername||source==pfPassword){
-			String user = tfUsername.getText();
-			String pass = String.copyValueOf(pfPassword.getPassword());
-			program.login(user, pass);
+			program.login(tfUsername.getText(), String.copyValueOf(pfPassword.getPassword()));
 			program.loadData(program);
 		}
 		if(source==mntmExit){
@@ -496,14 +499,14 @@ public class Window  implements  ActionListener, DocumentListener{
 		}
 		if(source==mntmAntragLand){			
 			try {
-				new WriterAntragLand(frmNami).run("Land_Ausgefüllt.odt", program.getParticipants());
+				new WriterAntragLand(frmNami).run("Land_AusgefÃ¼llt.odt", program.getParticipants());
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		}
 		if(source==mntmAntragStadt){
 			try {
-				new WriterAntragStadt_Dinslaken(frmNami).run("Stadt_Augefüllt.odt", program.getParticipants());
+				new WriterAntragStadt_Dinslaken(frmNami).run("Stadt_AugefÃ¼llt.odt", program.getParticipants());
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}

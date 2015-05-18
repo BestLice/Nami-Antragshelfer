@@ -31,7 +31,7 @@ public enum Geschlecht {
     	if(str == null){
     		return null;
     	}
-    	if(str.equalsIgnoreCase("maennlich")||str.equalsIgnoreCase("m‰nnlich")){
+    	if(str.equalsIgnoreCase("maennlich")||str.equalsIgnoreCase("m√§nnlich")){
     		return MAENNLICH;
     	}
     	if(str.equalsIgnoreCase("weiblich")){

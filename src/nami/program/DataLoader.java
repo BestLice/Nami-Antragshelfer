@@ -51,12 +51,12 @@ class DataLoader extends SwingWorker<Void, IntegerAndString>{
     protected void process(List<IntegerAndString> chunks) {
         IntegerAndString i = chunks.get(chunks.size()-1);
         program.getWindow().getProgressBar().setValue(i.getInteger());
-        program.getWindow().getProgressBar().setString("Lädt "+i.getString()+" "+program.getWindow().getProgressBar().getValue()+"%");
+        program.getWindow().getProgressBar().setString("LÃ¤dt "+i.getString()+" "+program.getWindow().getProgressBar().getValue()+"%");
         program.getWindow().updateLists();
     }
 	
 	/**
-     * Lädt alle daten in einem anderem Thread runter.
+     * Lï¿½dt alle daten in einem anderem Thread runter.
      */
 	@Override
 	protected Void doInBackground() throws Exception {
@@ -69,10 +69,9 @@ class DataLoader extends SwingWorker<Void, IntegerAndString>{
 			NamiMitglied e = element.getFullData(program.getConnection());
 			program.getMember().add(e);
 			i++;
-			//JOptionPane.showMessageDialog(null, e.getNamiMitglied().getGeburtsDatum());
 			publish(new IntegerAndString((int)(100*i/items), element.getVorname()+" "+element.getNachname()));
 		}
-		publish(new IntegerAndString(100, "Alle Mitglieder geladen. "+(System.currentTimeMillis() - t1)+" ms"));
+		publish(new IntegerAndString(100, (System.currentTimeMillis() - t1)+" ms"));
 		return null;
 	}	
 }

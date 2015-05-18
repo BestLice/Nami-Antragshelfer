@@ -98,7 +98,7 @@ public abstract class WriterAntrag {
 		if(pages==0){
 			//no pages to export
 			System.out.println("No participants were selected. Select at least one participant to export an application form.");
-			JOptionPane.showMessageDialog(null, "Es wurden keine Teilnehmer ausgew‰hlt.");
+			JOptionPane.showMessageDialog(null, "Es wurden keine Teilnehmer ausgew√§hlt.");
 			return;
 		}
 		System.out.println("Application form ''"+getResourceFileName()+"''(pages: "+String.valueOf(pages)+") will be exported.");

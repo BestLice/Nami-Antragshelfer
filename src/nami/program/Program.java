@@ -101,7 +101,6 @@ public class Program{
               loader.execute();  
             }
         });		
-		Collections.sort(member);
 	}
 	
 	
@@ -114,7 +113,6 @@ public class Program{
 	public void putMemberToParticipants(int index){
 		participants.add(member.get(index));
 		member.remove(index);
-		Collections.sort(participants);
 	}
 	
 	/**
@@ -127,7 +125,6 @@ public class Program{
 		int index=member.indexOf(n);
 		participants.add(member.get(index));
 		member.remove(index);
-		Collections.sort(participants);
 	}
 	
 	/**
@@ -139,7 +136,6 @@ public class Program{
 	public void putParticipantToMember(int index){
 		member.add(participants.get(index));
 		participants.remove(index);
-		Collections.sort(member);
 	}
 	
 	/**

@@ -28,7 +28,7 @@ public abstract class WriterAntrag {
 	
 	protected UserInput userInput;
 	
-	protected SimpleDateFormat sdfDB = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");	
+	protected SimpleDateFormat sdfDB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	
 	
 	/**
 	 * Constructor

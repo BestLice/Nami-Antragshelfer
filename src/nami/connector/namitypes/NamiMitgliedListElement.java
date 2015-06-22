@@ -1,66 +1,59 @@
 package nami.connector.namitypes;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.Collection;
 
 import nami.connector.Geschlecht;
+import nami.connector.MitgliedStatus;
 import nami.connector.Mitgliedstyp;
 import nami.connector.NamiConnector;
+import nami.connector.NamiResponse;
+import nami.connector.NamiURIBuilder;
 import nami.connector.exception.NamiApiException;
 
+import org.apache.http.client.methods.HttpGet;
+
+import com.google.gson.reflect.TypeToken;
+
+@SuppressWarnings("unused")
 public class NamiMitgliedListElement extends NamiAbstractMitglied implements
         Comparable<NamiMitgliedListElement> {
     public static class EntriesType {
-        @SuppressWarnings("unused")
-		private String id;
+        private String id;
 
         private String vorname;
         private String nachname;
 
         private String email;
-        @SuppressWarnings("unused")
-		private String emailVertretungsberechtigter;
-        @SuppressWarnings("unused")
-		private String telefon1;
-        @SuppressWarnings("unused")
-		private String telefon2;
-        @SuppressWarnings("unused")
-		private String telefon3;
-        @SuppressWarnings("unused")
-		private String telefax;
+        private String emailVertretungsberechtigter;
+        private String telefon1;
+        private String telefon2;
+        private String telefon3;
+        private String telefax;
 
         // nur in Suche, nicht in Mitgliederverwaltung
         private String gruppierungId;
         private String gruppierung;
 
-        @SuppressWarnings("unused")
-		private String stufe;
-        @SuppressWarnings("unused")
-		private String geburtsDatum;
+        private String stufe;
+        private String geburtsDatum;
 
         private String mglType;
-        @SuppressWarnings("unused")
-		private String status;
+        private String status;
 
-        @SuppressWarnings("unused")
-		private String staatsangehoerigkeit;
-        @SuppressWarnings("unused")
-		private String staatangehoerigkeitText;
+        private String staatsangehoerigkeit;
+        private String staatangehoerigkeitText;
         private String geschlecht;
-        @SuppressWarnings("unused")
-		private String konfession;
-        @SuppressWarnings("unused")
-		private String rowCssClass;
-        @SuppressWarnings("unused")
-		private String lastUpdated;
-        @SuppressWarnings("unused")
-		private String version;
-        @SuppressWarnings("unused")
-		private String wiederverwendenFlag;
+        private String konfession;
+        private String rowCssClass;
+        private String lastUpdated;
+        private String version;
+        private String wiederverwendenFlag;
         private String mitgliedsNummer;
     }
 
-    @SuppressWarnings("unused")
-	private String descriptor;
+    private String descriptor;
     private EntriesType entries;
     private int id;
 
@@ -95,6 +88,11 @@ public class NamiMitgliedListElement extends NamiAbstractMitglied implements
     }
 
     @Override
+    public MitgliedStatus getStatus() {
+        return MitgliedStatus.fromString(entries.status);
+    }
+
+    @Override
     public Mitgliedstyp getMitgliedstyp() {
         return Mitgliedstyp.fromString(entries.mglType);
     }
@@ -107,6 +105,11 @@ public class NamiMitgliedListElement extends NamiAbstractMitglied implements
     @Override
     public int getMitgliedsnummer() {
         return Integer.parseInt(entries.mitgliedsNummer);
+    }
+
+    @Override
+    public int getVersion() {
+        return Integer.parseInt(entries.version);
     }
 
     @Override
@@ -145,4 +148,46 @@ public class NamiMitgliedListElement extends NamiAbstractMitglied implements
         }
         return true;
     }
+
+    /**
+     * Liefert die Mitglieder, die einer bestimmten Gruppierung angehören
+     * (entweder als Stammgruppierung oder sie üben dort eine Tätigkeit aus).
+     * 
+     * @param con
+     *            Verbindung zum NaMi-Server
+     * @param gruppierungsnummer
+     *            Nummer der Gruppierung, in der gesucht werden soll
+     * @return gefundene Mitglieder
+     * @throws NamiApiException
+     *             API-Fehler beim Zugriff auf NaMi
+     * @throws IOException
+     *             IOException
+     */
+    public static Collection<NamiMitgliedListElement> getMitgliederFromGruppierung(
+            NamiConnector con, String gruppierungsnummer)
+            throws NamiApiException, IOException {
+
+        String url = String.format(
+                NamiURIBuilder.URL_MITGLIEDER_FROM_GRUPPIERUNG,
+                gruppierungsnummer);
+        NamiURIBuilder builder = con.getURIBuilder(url);
+        builder.setParameter("limit", "5000");
+        builder.setParameter("page", "1");
+        builder.setParameter("start", "0");
+        HttpGet httpGet = new HttpGet(builder.build());
+
+        Type type = new TypeToken<NamiResponse<Collection<NamiMitgliedListElement>>>() {
+        }.getType();
+        NamiResponse<Collection<NamiMitgliedListElement>> resp = con
+                .executeApiRequest(httpGet, type);
+
+        if (resp.isSuccess()) {
+            return resp.getData();
+        } else {
+            throw new NamiApiException("Could not get member list from Nami: "
+                    + resp.getMessage());
+        }
+
+    }
+
 }

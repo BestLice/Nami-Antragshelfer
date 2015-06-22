@@ -52,7 +52,7 @@ import java.util.List;
 public class Window  implements  ActionListener, DocumentListener{
 
 	private static final int VERSION_MAJOR = 2;
-	private static final int VERSION_MINOR = 0;
+	private static final int VERSION_MINOR = 1;
 	
 	private JFrame 		frmNami;
 	private JTextField 	tfFirstName,

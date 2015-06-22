@@ -18,29 +18,21 @@ import com.google.gson.reflect.TypeToken;
  * @author Fabian Lipp
  * 
  */
+@SuppressWarnings("unused")
 public class NamiTaetigkeitAssignment {
     // Die folgenden Variablen stammen aus NaMi. Keinesfalls umbenennen.
-    @SuppressWarnings("unused")
-	private int id;
-    @SuppressWarnings("unused")
-	private String gruppierung;
+    private int id;
+    private String gruppierung;
     private int gruppierungId;
-    @SuppressWarnings("unused")
-	private String taetigkeit;
+    private String taetigkeit;
     private int taetigkeitId;
-    @SuppressWarnings("unused")
-	private String caeaGroup;
-    @SuppressWarnings("unused")
-	private int caeaGroupId;
-    @SuppressWarnings("unused")
-	private String caeaGroupForGf;
-    @SuppressWarnings("unused")
-	private int caeaGroupForGfId;
-    @SuppressWarnings("unused")
-	private String untergliederung;
+    private String caeaGroup;
+    private int caeaGroupId;
+    private String caeaGroupForGf;
+    private int caeaGroupForGfId;
+    private String untergliederung;
     private int untergliederungId;
-    @SuppressWarnings("unused")
-	private String aktivVon;
+    private String aktivVon;
     private String aktivBis;
 
     /**

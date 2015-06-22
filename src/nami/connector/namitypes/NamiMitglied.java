@@ -2,11 +2,18 @@ package nami.connector.namitypes;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import nami.connector.Beitragsart;
 import nami.connector.Geschlecht;
+import nami.connector.MitgliedStatus;
 import nami.connector.Mitgliedstyp;
 import nami.connector.NamiConnector;
 import nami.connector.NamiResponse;
@@ -21,40 +28,34 @@ import com.google.gson.reflect.TypeToken;
 /**
  * Stellt ein Mitglied der DPSG dar.
  * 
- * @author Fabian Lipp, Tobias Miosczka
+ * @author Fabian Lipp
  * 
  */
-public class NamiMitglied extends NamiAbstractMitglied implements Comparable<NamiMitglied>{
+@SuppressWarnings("unused")
+public class NamiMitglied extends NamiAbstractMitglied implements Comparable<NamiMitglied> {
     /**
      * Beschreibt die Bankverbindung eines Mitglieds.
      */
     public static class KontoverbindungType {
-		private String id;
-		private String mitgliedsNummer;
-		private String kontoinhaber;
-		private String kontonummer;
-		private String bankleitzahl;
-		private String institut;
-		private String iban;
-		private String bic;
-		
-		public String getId() {return id;}
-		public String getMitgliedsNummer() {return mitgliedsNummer;}
-		public String getKontoinhaber() {return kontoinhaber;}
-		public String getKontonummer() {return kontonummer;}
-		public String getBic() {return bic;}
-		public String getBankleitzahl() {return bankleitzahl;}
-		public String getInstitut() {return institut;}
-		public String getIban() {return iban;}
+        private String id;
+        private String mitgliedsNummer;
 
+        private String kontoinhaber;
+        private String kontonummer;
+        private String bankleitzahl;
+        private String institut;
+
+        private String iban;
+        private String bic;
     }
 
     private int id;
     private int mitgliedsNummer;
-	private String beitragsarten;
-	private Collection<Integer> beitragsartenId;
-	private String statusId; // ENUM??
-	private String status; // ENUM?? (z.B. AKTIV)
+
+    private String beitragsarten;
+    private Collection<Integer> beitragsartenId;
+    private String statusId; // ENUM??
+    private String status; // ENUM?? (z.B. AKTIV)
 
     private String vorname;
     private String nachname;
@@ -67,35 +68,45 @@ public class NamiMitglied extends NamiAbstractMitglied implements Comparable<Nam
     private String telefax;
     private String email;
     private String emailVertretungsberechtigter;
-	private String staatsangehoerigkeitId; // int?
-	private String staatsangehoerigkeit;
-	private String staatsangehoerigkeitText;
-	private String mglTypeId; // ENUM?? z.B. NICHT_MITGLIED
+
+    private String staatsangehoerigkeitId; // int?
+    private String staatsangehoerigkeit;
+    private String staatsangehoerigkeitText;
+
+    private String mglTypeId; // ENUM?? z.B. NICHT_MITGLIED
     private String mglType;
-    private String geburtsDatumFormatted;
-	private String geburtsDatum;
-	private String regionId; // int? (null mÃ¶glich)
-	private String region;
-	private String landId; // int?
-	private String land;
+
+    private String geburtsDatum;
+
+    private String regionId; // int? (null möglich)
+    private String region;
+
+    private String landId; // int?
+    private String land;
+
     private String gruppierung;
     private int gruppierungId;
-	private String ersteUntergliederung;// private String ersteUntergliederungId" : null, //?
-	private String ersteTaetigkeitId;
-	private String ersteTaetigkeit;
+    // private String ersteUntergliederungId" : null, //?
+    private String ersteUntergliederung;
+
+    private String ersteTaetigkeitId;
+    private String ersteTaetigkeit;
     private String stufe;
-	private boolean wiederverwendenFlag;
-	private boolean zeitschriftenversand;
-	private String konfessionId; // int?
-	private String konfession; // ENUM?
-	private String geschlechtId;
+
+    private boolean wiederverwendenFlag;
+    private boolean zeitschriftenversand;
+
+    private String konfessionId; // int?
+    private String konfession; // ENUM?
+    private String geschlechtId;
     private String geschlecht;
 
     private String eintrittsdatum;
-	private String zahlungsweise;
-	private int version;
-	private String lastUpdated;
-	private KontoverbindungType kontoverbindung;
+    private String zahlungsweise;
+    private int version;
+    private String lastUpdated;
+
+    private KontoverbindungType kontoverbindung;
 
     @Override
     public int getId() {
@@ -123,6 +134,11 @@ public class NamiMitglied extends NamiAbstractMitglied implements Comparable<Nam
     }
 
     @Override
+    public MitgliedStatus getStatus() {
+        return MitgliedStatus.fromString(status);
+    }
+
+    @Override
     public Mitgliedstyp getMitgliedstyp() {
         return Mitgliedstyp.fromString(mglType);
     }
@@ -143,22 +159,75 @@ public class NamiMitglied extends NamiAbstractMitglied implements Comparable<Nam
     }
 
     @Override
+    public int getVersion() {
+        return version;
+    }
+
+    /**
+     * Liefert die Beitragsart des Mitglieds.
+     * 
+     * @return Beitragsart
+     */
+    public Beitragsart getBeitragsart() {
+        return Beitragsart.fromString(beitragsarten);
+    }
+
+    /**
+     * Liefert das Eintrittsdatum des Mitglieds.
+     * 
+     * @return Eintrittsdatum
+     */
+    public Date getEintrittsdatum() {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        try {
+            cal.setTime(df.parse(eintrittsdatum));
+            return cal.getTime();
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Liefert die Straße der Wohnung des Mitglieds.
+     * 
+     * @return Straße
+     */
+    public String getStrasse() {
+        return strasse;
+    }
+
+    /**
+     * Liefert die PLZ der Wohnung des Mitglieds.
+     * 
+     * @return PLZ
+     */
+    public String getPlz() {
+        return plz;
+    }
+
+    /**
+     * Liefert den Ort der Wohnung des Mitglieds.
+     * 
+     * @return Ort
+     */
+    public String getOrt() {
+        return ort;
+    }
+
+    @Override
     public NamiMitglied getFullData(NamiConnector con) throws NamiApiException,
             IOException {
         // do nothing (this object already contains the full data)
         return this;
     }
-    
-    public String getStufe(){
-    	return stufe;
-    }
 
     /**
-     * Gibt die Stammdaten dieses Mitglieds als ausfï¿½hrlichen Text zurï¿½ck. Der
-     * Rï¿½ckgabewert enthï¿½lt also mehr Angaben als die Ausgabe der
+     * Gibt die Stammdaten dieses Mitglieds als ausführlichen Text zurück. Der
+     * Rückgabewert enthält also mehr Angaben als die Ausgabe der
      * <tt>toString</tt>-Method.
      * 
-     * @return fï¿½r die Ausgabe formatierte Mitgliedsdaten
+     * @return für die Ausgabe formatierte Mitgliedsdaten
      */
     public String toLongString() {
         StringBuilder str = new StringBuilder();
@@ -175,10 +244,10 @@ public class NamiMitglied extends NamiAbstractMitglied implements Comparable<Nam
                 this.value = value;
             }
         }
-        List<Row> rows = new LinkedList<Row>();
+        List<Row> rows = new LinkedList<>();
         rows.add(new Row("Nachname", nachname));
         rows.add(new Row("Vorname", vorname));
-        rows.add(new Row("StraÃŸe", strasse));
+        rows.add(new Row("Straße", strasse));
         rows.add(new Row("PLZ, Ort", plz + " " + ort));
         rows.add(new Row("E-Mail", email));
         rows.add(new Row("E-Mail Vertr.", emailVertretungsberechtigter));
@@ -186,7 +255,7 @@ public class NamiMitglied extends NamiAbstractMitglied implements Comparable<Nam
         rows.add(new Row("Telefon 2", telefon2));
         rows.add(new Row("Telefon 3", telefon3));
         rows.add(new Row("Telefax", telefax));
-        rows.add(new Row("Geburtsdatum", geburtsDatumFormatted));
+        rows.add(new Row("Geburtsdatum", geburtsDatum));
         rows.add(new Row("Stammgruppierung", gruppierung));
         rows.add(new Row("Stufe", stufe));
         // TODO: Formatierung Eintrittsdatum
@@ -227,7 +296,8 @@ public class NamiMitglied extends NamiAbstractMitglied implements Comparable<Nam
 
         HttpGet httpGet = new HttpGet(builder.build());
 
-        Type type = new TypeToken<NamiResponse<NamiMitglied>>() { }.getType();
+        Type type = new TypeToken<NamiResponse<NamiMitglied>>() {
+        }.getType();
         NamiResponse<NamiMitglied> resp = con.executeApiRequest(httpGet, type);
 
         if (resp.isSuccess()) {
@@ -271,239 +341,217 @@ public class NamiMitglied extends NamiAbstractMitglied implements Comparable<Nam
             NamiMitgliedListElement result = resp.getData().iterator().next();
             return result.getId();
         }
-
     }
-    
-    //autor Tobias Miosczka
 	
-	/**
-	 * @return straÃŸe
-	 */
-	public String getStrasse() {
-		return strasse;
-	}
+	   //author Tobias Miosczka
 	
-	/**
-	 * @return ort
-	 */
-	public String getOrt() {
-		return ort;
-	}
-	
-	/**
-	 * @return beitragsartenId
-	 */
-	public String getPLZ() {
-		return plz;
-	}
-	
-	/**   TODO: get this working
-	 * @return formattiertes alter
-	 
-	public String getAlterFormatiert() {
-		return geburtsDatumFormatted;
-	}
-	*/
-	
-	/**
-	 * @return getGeburtsDatum, yyyy-MM-dd HH:mm:ss
-	 */
-	public String getGeburtsDatum() {
-		return geburtsDatum;
-	}
 
-	/**
-	 * @return beitragsarten
-	 */
-	public String getBeitragsarten() {
-		return beitragsarten;
-	}
-	
-	/**
-	 * @return beitragsartenId
-	 */
-	public Collection<Integer> getBeitragsartenId() {
-		return beitragsartenId;
-	}
+		
+		/**
+		 * @return beitragsartenId
+		 */
+		public String getPLZ() {
+			return plz;
+		}
+		
+		/**   TODO: get this working
+		 * @return formattiertes alter
+		 
+		public String getAlterFormatiert() {
+			return geburtsDatumFormatted;
+		}
+		*/
+		
+		/**
+		 * @return getGeburtsDatum, yyyy-MM-dd HH:mm:ss
+		 */
+		public String getGeburtsDatum() {
+			return geburtsDatum;
+		}
 
-	/**
-	 * @return statusId
-	 */
-	public String getStatusId() {
-		return statusId;
-	}
+		/**
+		 * @return beitragsarten
+		 */
+		public String getBeitragsarten() {
+			return beitragsarten;
+		}
+		
+		/**
+		 * @return beitragsartenId
+		 */
+		public Collection<Integer> getBeitragsartenId() {
+			return beitragsartenId;
+		}
 
-	/**
-	 * @return status
-	 */
-	public String getStatus() {
-		return status;
-	}
+		/**
+		 * @return statusId
+		 */
+		public String getStatusId() {
+			return statusId;
+		}
 
-	/**
-	 * @return kontoverbindung
-	 */
-	public KontoverbindungType getKontoverbindung() {
-		return kontoverbindung;
-	}
 
-	/**
-	 * @returnlastUpdated
-	 */
-	public String getLastUpdated() {
-		return lastUpdated;
-	}
+		/**
+		 * @return kontoverbindung
+		 */
+		public KontoverbindungType getKontoverbindung() {
+			return kontoverbindung;
+		}
 
-	/**
-	 * @return version
-	 */
-	public int getVersion() {
-		return version;
-	}
+		/**
+		 * @returnlastUpdated
+		 */
+		public String getLastUpdated() {
+			return lastUpdated;
+		}
 
-	/**
-	 * @return zahlungsweise
-	 */
-	public String getZahlungsweise() {
-		return zahlungsweise;
-	}
+		/**
+		 * @return zahlungsweise
+		 */
+		public String getZahlungsweise() {
+			return zahlungsweise;
+		}
 
-	/**
-	 * @return geschlechtId
-	 */
-	public String getGeschlechtId() {
-		return geschlechtId;
-	}
-	
-	/**
-	 * @return konfession
-	 */
-	public String getKonfession() {
-		return konfession;
-	}
+		/**
+		 * @return geschlechtId
+		 */
+		public String getGeschlechtId() {
+			return geschlechtId;
+		}
+		
+		/**
+		 * @return konfession
+		 */
+		public String getKonfession() {
+			return konfession;
+		}
 
-	/**
-	 * @return konfessionId
-	 */
-	public String getKonfessionId() {
-		return konfessionId;
-	}
+		/**
+		 * @return konfessionId
+		 */
+		public String getKonfessionId() {
+			return konfessionId;
+		}
 
-	/**
-	 * @return zeitschriftenversand
-	 */
-	public boolean isZeitschriftenversand() {
-		return zeitschriftenversand;
-	}
+		/**
+		 * @return zeitschriftenversand
+		 */
+		public boolean isZeitschriftenversand() {
+			return zeitschriftenversand;
+		}
 
-	/**
-	 * @return wiederverwendenFlag
-	 */
-	public boolean isWiederverwendenFlag() {
-		return wiederverwendenFlag;
-	}
+		/**
+		 * @return wiederverwendenFlag
+		 */
+		public boolean isWiederverwendenFlag() {
+			return wiederverwendenFlag;
+		}
 
-	/**
-	 * @return ersteTaetigkeit
-	 */
-	public String getErsteTaetigkeit() {
-		return ersteTaetigkeit;
-	}
+		/**
+		 * @return ersteTaetigkeit
+		 */
+		public String getErsteTaetigkeit() {
+			return ersteTaetigkeit;
+		}
 
-	/**
-	 * @return ersteTaetigkeitId
-	 */
-	public String getErsteTaetigkeitId() {
-		return ersteTaetigkeitId;
-	}
+		/**
+		 * @return ersteTaetigkeitId
+		 */
+		public String getErsteTaetigkeitId() {
+			return ersteTaetigkeitId;
+		}
 
-	/**
-	 * @return ersteUntergliederung
-	 */
-	public String getErsteUntergliederung() {
-		return ersteUntergliederung;
-	}
+		/**
+		 * @return ersteUntergliederung
+		 */
+		public String getErsteUntergliederung() {
+			return ersteUntergliederung;
+		}
 
-	/**
-	 * @return staatsangehoerigkeitId
-	 */
-	public String getStaatsangehoerigkeitId() {
-		return staatsangehoerigkeitId;
-	}
+		/**
+		 * @return staatsangehoerigkeitId
+		 */
+		public String getStaatsangehoerigkeitId() {
+			return staatsangehoerigkeitId;
+		}
 
-	/**
-	 * @return staatsangehoerigkeit
-	 */
-	public String getStaatsangehoerigkeit() {
-		return staatsangehoerigkeit;
-	}
+		/**
+		 * @return staatsangehoerigkeit
+		 */
+		public String getStaatsangehoerigkeit() {
+			return staatsangehoerigkeit;
+		}
 
-	/**
-	 * @return staatsangehoerigkeitText
-	 */
-	public String getStaatsangehoerigkeitText() {
-		return staatsangehoerigkeitText;
-	}
+		/**
+		 * @return staatsangehoerigkeitText
+		 */
+		public String getStaatsangehoerigkeitText() {
+			return staatsangehoerigkeitText;
+		}
 
-	/**
-	 * @return mglTypeId
-	 */
-	public String getMglTypeId() {
-		return mglTypeId;
-	}
+		/**
+		 * @return mglTypeId
+		 */
+		public String getMglTypeId() {
+			return mglTypeId;
+		}
 
-	/**
-	 * @return regionId
-	 */
-	public String getRegionId() {
-		return regionId;
-	}
+		/**
+		 * @return regionId
+		 */
+		public String getRegionId() {
+			return regionId;
+		}
 
-	/**
-	 * @return region
-	 */
-	public String getRegion() {
-		return region;
-	}
+		/**
+		 * @return region
+		 */
+		public String getRegion() {
+			return region;
+		}
 
-	/**
-	 * @return landId
-	 */
-	public String getLandId() {
-		return landId;
-	}
+		/**
+		 * @return landId
+		 */
+		public String getLandId() {
+			return landId;
+		}
 
-	/**
-	 * @return land
-	 */
-	public String getLand() {
-		return land;
-	}
-	
-	public String getTelefon1(){
-		return telefon1;
-	}
+		/**
+		 * @return land
+		 */
+		public String getLand() {
+			return land;
+		}
+		
+		public String getTelefon1(){
+			return telefon1;
+		}
 
-	public String getTelefon2(){
-		return telefon2;
-	}
-	
-	public String getTelefon3(){
-		return telefon3;
-	}
-	
-	public String getTelefax(){
-		return telefax;
-	}
-	
-	@Override
-	public int compareTo(NamiMitglied other) {
-		return (getVorname() + getNachname()).compareTo(other.getVorname() + other.getNachname());
-	}
-	
-	@Override
-	public String toString(){
-		return getVorname() + " " + getNachname();
-	}
-	//autor Tobias Miosczka end
+		public String getTelefon2(){
+			return telefon2;
+		}
+		
+		public String getTelefon3(){
+			return telefon3;
+		}
+		
+		public String getTelefax(){
+			return telefax;
+		}
+		
+		@Override
+		public int compareTo(NamiMitglied other) {
+			return (getVorname() + getNachname()).compareTo(other.getVorname() + other.getNachname());
+		}
+		
+		@Override
+		public String toString(){
+			return getVorname() + " " + getNachname();
+		}
+		
+		public String getStufe() {
+			return stufe;
+		}
+		//author Tobias Miosczka end
 }

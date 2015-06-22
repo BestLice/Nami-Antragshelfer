@@ -15,40 +15,27 @@ import org.apache.http.client.methods.HttpGet;
 import com.google.gson.reflect.TypeToken;
 
 // TODO: Implementiere hascode (?)
+@SuppressWarnings("unused")
 public class NamiTaetigkeitAssignmentListElement implements Comparable<NamiTaetigkeitAssignmentListElement> {
     private static final int MAX_TAETIGKEITEN = 1000;
     
     public static class EntriesType {
-        @SuppressWarnings("unused")
-		private String gruppierung;
-        @SuppressWarnings("unused")
-		private String caeaGroup;
-        @SuppressWarnings("unused")
-		private String untergliederung;
-        @SuppressWarnings("unused")
-		private String anlagedatum;
-        @SuppressWarnings("unused")
-		private String aktivVon;
-        @SuppressWarnings("unused")
-		private String aktivBis;
-        @SuppressWarnings("unused")
-		private String caeaGroupForGf;
-        @SuppressWarnings("unused")
-		private String taetigkeit;
-        @SuppressWarnings("unused")
+        private String gruppierung;
+        private String caeaGroup;
+        private String untergliederung;
+        private String anlagedatum;
+        private String aktivVon;
+        private String aktivBis;
+        private String caeaGroupForGf;
+        private String taetigkeit;
 		private String rowCssClass;
-        @SuppressWarnings("unused")
-		private String mitglied;
+        private String mitglied;
     }
 
-    @SuppressWarnings("unused")
-	private String descriptor;
-    @SuppressWarnings("unused")
-	private EntriesType entries;
-    @SuppressWarnings("unused")
-	private String name;
-    @SuppressWarnings("unused")
-	private String representedClass;
+    private String descriptor;
+    private EntriesType entries;
+    private String name;
+    private String representedClass;
     private int id;
 
     public int getId() {

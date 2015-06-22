@@ -202,6 +202,21 @@ public class NamiSearchedValues {
     }
 
     /**
+     * Liefert ein Suchobjekt, das alle Mitglieder findet, die eine gegebene
+     * Gruppierung als Stammgruppierung besitzen.
+     * 
+     * @param gruppierungsnummer
+     *            Nummer der Gruppierung, deren Mitglieder gesucht werden
+     * @return ein Suchobjekt, das die gewünschte Anfrage in NaMi ausführt
+     */
+    public static NamiSearchedValues withStammgruppierung(
+            String gruppierungsnummer) {
+        NamiSearchedValues search = new NamiSearchedValues();
+        search.setGruppierungsnummer(gruppierungsnummer);
+        return search;
+    }
+
+    /**
      * Liefert einen Teil der Mitglieder, die der Suchanfrage entsprechen.
      * 
      * @param con
@@ -237,10 +252,11 @@ public class NamiSearchedValues {
         builder.setParameter("searchedValues", con.toJson(this));
         HttpGet httpGet = new HttpGet(builder.build());
 
-        Type type = new TypeToken<NamiResponse<Collection<NamiMitgliedListElement>>>() {}.getType();
-        NamiResponse<Collection<NamiMitgliedListElement>> resp = con.executeApiRequest(httpGet, type);
-        
-        System.out.println(resp.getMessage());
+        Type type = new TypeToken<NamiResponse<Collection<NamiMitgliedListElement>>>() {
+        }.getType();
+        NamiResponse<Collection<NamiMitgliedListElement>> resp = con
+                .executeApiRequest(httpGet, type);
+
         return resp;
     }
 
@@ -257,8 +273,11 @@ public class NamiSearchedValues {
      * @throws NamiApiException
      *             API-Fehler beim Zugriff auf NaMi
      */
-    public Collection<NamiMitgliedListElement> getAllResults(NamiConnector con)throws IOException, NamiApiException {
-        NamiResponse<Collection<NamiMitgliedListElement>> resp = getSearchResult(con, INITIAL_LIMIT, 1, 0);
+    public Collection<NamiMitgliedListElement> getAllResults(NamiConnector con)
+            throws IOException, NamiApiException {
+        NamiResponse<Collection<NamiMitgliedListElement>> resp = getSearchResult(
+                con, INITIAL_LIMIT, 1, 0);
+
         if (resp.getTotalEntries() > INITIAL_LIMIT) {
             resp = getSearchResult(con, resp.getTotalEntries(), 1, 0);
         }

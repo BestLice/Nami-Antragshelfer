@@ -98,7 +98,7 @@ public class WriterAntragStadt_Dinslaken extends WriterAntrag {
 	@Override
 	protected void initializeOptions() {
 		// TODO Auto-generated method stub
-		userInput.addStringOption("Art der Ma�nahme", "");		//0
+		userInput.addStringOption("Art der Maßnahme", "");		//0
 		userInput.addDateOption("Anfangsdatum", new Date());	//1
 		userInput.addDateOption("Enddatum", new Date());		//2
 		userInput.addStringOption("Ort", "");					//3

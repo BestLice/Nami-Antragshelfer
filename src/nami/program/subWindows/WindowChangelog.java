@@ -32,8 +32,7 @@ public class WindowChangelog extends JFrame {
 		contentPane.setToolTipText("Changelog");
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-		
+		setContentPane(contentPane);		
 		JTextPane txtpnBenutzungbenutzernamemitgliedsnummer = new JTextPane();
 		txtpnBenutzungbenutzernamemitgliedsnummer.setBackground(UIManager.getColor("Panel.background"));
 		txtpnBenutzungbenutzernamemitgliedsnummer.setEditable(false);
@@ -60,6 +59,8 @@ public class WindowChangelog extends JFrame {
 			+ "\t hinzugefügt.                                      \r\n"
 			+ "\t Formatierungsfehler beseitigt.                    \r\n"
 			+ "\t Bugfixes.                                         \r\n"
+			+ "2.1 \t Geburtsdaten und Alter werden richtig         \r\n"
+			+ "\t angezeigt.                                        \r\n"
 			+ "\t                                                   \r\n"
 			+ "Bekannte Fehler:                                     \r\n"
 			+ "\t Das Anfangs- und Enddatum wird bei dem Antrag     \r\n"

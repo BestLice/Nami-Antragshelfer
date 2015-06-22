@@ -233,13 +233,13 @@ public class NamiGruppierung {
                 httpGet, type);
 
         Collection<NamiGruppierung> allChildren = resp.getData();
-        Collection<NamiGruppierung> activeChildren = new LinkedList<NamiGruppierung>();
+        Collection<NamiGruppierung> activeChildren = new LinkedList<>();
         for (NamiGruppierung child : allChildren) {
             activeChildren.add(child);
             // Kinder brauchen nur abgefragt werden, wenn es sich nicht um
             // einen Stamm handelt (denn Stämme haben keine Kinder)
             if (child.getEbene() == Ebene.STAMM) {
-                child.children = new LinkedList<NamiGruppierung>();
+                child.children = new LinkedList<>();
             } else {
                 child.children = getChildGruppierungen(con,
                         Integer.toString(child.id));

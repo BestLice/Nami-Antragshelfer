@@ -51,9 +51,9 @@ public class WriterAntragLand extends WriterAntrag{
 					
 				//Name, Vorname
 				tParticipants.getCellByPosition(2, row).setStringValue(m.getNachname()+", "+m.getVorname());
-				//Anschrift: Stra�e, PLZ, Wohnort
+				//Anschrift: Straße, PLZ, Wohnort
 				tParticipants.getCellByPosition(3, row).setStringValue(m.getStrasse()+", "+m.getPLZ()+", "+m.getOrt());
-				//w=weibl. m=m�nnl.
+				//w=weibl. m=männl.
 				if(m.getGeschlecht()==Geschlecht.MAENNLICH){
 					tParticipants.getCellByPosition(4, row).setStringValue("m");
 				}
@@ -93,8 +93,8 @@ public class WriterAntragLand extends WriterAntrag{
 
 	@Override
 	protected void initializeOptions() {
-		userInput.addStringOption("Mitgliedsverband", "DPSG Di�zesanverband M�nster");	//0
-		userInput.addStringOption("Tr�ger", "BDKJ Stadtverband Dinslaken");				//1
+		userInput.addStringOption("Mitgliedsverband", "DPSG Diözesanverband Münster");	//0
+		userInput.addStringOption("Träger", "BDKJ Stadtverband Dinslaken");				//1
 		userInput.addDateOption("Anfangsdatum", new Date());							//2
 		userInput.addDateOption("Enddatum", new Date());								//3
 		userInput.addStringOption("PLZ Ort", "46535 Dinslaken");						//4

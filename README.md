@@ -1,16 +1,16 @@
 Nami-Antragshelfer
 ==================
 
-Der Nami-Antragshelfer ist ein Programm zum AusfÃ¼llen von FÃ¶rderungsantrÃ¤gen fÃ¼r PfadfinderstÃ¤mme der DPSG.
-Die benÃ¶tigten Mitgliederdaten kÃ¶nnen aus der Nami-Datenbank heruntergeladen und mithilfe einer einfachen BenutzeroberflÃ¤che ausgewÃ¤hlt werden.
-Derweil kÃ¶nnen AntrÃ¤ge an die Stadt Dinslaken und das Land exportiert werden.
+Der Nami-Antragshelfer ist ein Programm zum Ausfüllen von FörderungsantrÃ¤gen für Pfadfinderstämme der DPSG.
+Die benötigten Mitgliederdaten können aus der NaMi-Datenbank heruntergeladen und mithilfe einer einfachen Benutzeroberfläche ausgewählt werden.
+Derweil können Anträge an die Stadt Dinslaken und das Land exportiert werden.
 
 Lizenz:
 -------
-Der Code unterliegt der GNU GPL. Der vollstÃ¤ndige Lizenztext befindet sich in LICENSE.
+Der Code unterliegt der GNU GPL. Der vollständige Lizenztext befindet sich in LICENSE.
 
-    Copyright (C) 2013 Fabian Lipp
-              (C) 2014 Tobias Miosczka
+    Copyright (C) 2013 			Fabian Lipp
+              (C) 2013 - 2015 	Tobias Miosczka
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

@@ -43,8 +43,7 @@ public abstract class NamiAbstractMitglied {
      * @throws IOException
      *             IOException
      */
-    public abstract NamiMitglied getFullData(NamiConnector con)
-            throws NamiApiException, IOException;
+    public abstract NamiMitglied getFullData(NamiConnector con)throws NamiApiException, IOException;
 
     @Override
     public String toString() {

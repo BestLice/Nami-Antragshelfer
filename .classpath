@@ -9,13 +9,11 @@
 	<classpathentry kind="lib" path="lib/htmlcleaner-2.4.jar"/>
 	<classpathentry kind="lib" path="lib/httpclient-4.2.3.jar"/>
 	<classpathentry kind="lib" path="lib/httpcore-4.2.2.jar"/>
-	<classpathentry kind="lib" path="lib/jdom2-2.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/odfdom-0.8.7.jar"/>
 	<classpathentry kind="lib" path="lib/resolver.jar"/>
 	<classpathentry kind="lib" path="lib/serializer.jar"/>
 	<classpathentry kind="lib" path="lib/simple-odf-0.6.6.jar"/>
 	<classpathentry kind="lib" path="lib/xercesImpl.jar"/>
-	<classpathentry kind="lib" path="lib/xercesSamples.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis.jar"/>
 	<classpathentry kind="src" path=".apt_generated">
 		<attributes>
@@ -24,5 +22,7 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/commons-lang3-3.4.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_51"/>
+	<classpathentry kind="lib" path="lib/jdom-2.0.6.jar"/>
+	<classpathentry kind="lib" path="lib/jaxen-1.1.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

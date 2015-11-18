@@ -51,7 +51,7 @@ class DataLoader extends SwingWorker<Void, IntegerAndString>{
     protected void process(List<IntegerAndString> chunks) {
         IntegerAndString i = chunks.get(chunks.size()-1);
         program.getWindow().getProgressBar().setValue(i.getInteger());
-        program.getWindow().getProgressBar().setString("LÃ¤dt "+i.getString()+" "+program.getWindow().getProgressBar().getValue()+"%");
+        program.getWindow().getProgressBar().setString("Lädt "+i.getString()+" "+program.getWindow().getProgressBar().getValue()+"%");
         program.getWindow().updateLists();
     }
 	

@@ -13,7 +13,7 @@ public enum Ebene {
     BUND(0),
 
     /**
-     * DiÃ¶zesanebene.
+     * Diözesanebene.
      */
     DIOEZESE(2),
 
@@ -48,7 +48,7 @@ public enum Ebene {
      * 
      * @param gruppierungId
      *            Gruppierungsnummer
-     * @return Ebene, zu der die Gruppierungsnummer gehÃ¶rt
+     * @return Ebene, zu der die Gruppierungsnummer gehört
      */
     public static Ebene getFromGruppierungId(int gruppierungId) {
         // FÃ¼lle die GruppierungsID links mit Nullen auf 6 Stellen auf
@@ -65,7 +65,7 @@ public enum Ebene {
      * 
      * @param gruppierungId
      *            Gruppierungsnummer
-     * @return Ebene, zu der die Gruppierungsnummer gehÃ¶rt
+     * @return Ebene, zu der die Gruppierungsnummer gehört
      */
     public static Ebene getFromGruppierungId(String gruppierungId) {
         if (gruppierungId.equals("000000")) {
@@ -83,7 +83,7 @@ public enum Ebene {
      * Setzt einen String in die entsprechende Ebene um.
      * 
      * @param str
-     *            String-ReprÃ¤sentation der Ebene
+     *            String-Repräsentation der Ebene
      * @return entsprechende Ebene; <code>null</code>, wenn der String nicht
      *         umgesetzt werden kann
      */

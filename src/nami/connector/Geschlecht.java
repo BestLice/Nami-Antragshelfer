@@ -8,7 +8,7 @@ package nami.connector;
  */
 public enum Geschlecht {
     /**
-     * M√§nnlich.
+     * M‰nnlich.
      */
     MAENNLICH,
 
@@ -21,13 +21,13 @@ public enum Geschlecht {
      * Setzt einen String ins entsprechende Geschlecht um.
      * 
      * @param str
-     *            String-Repr√§sentation des Geschlechts
+     *            String-Repr‰sentation des Geschlechts
      * @return entsprechende Ebene; <code>null</code>, wenn der String nicht
      *         umgesetzt werden kann
      */
     public static Geschlecht fromString(String str) {
         switch (str) {
-        case "m√§nnlich":
+        case "m‰nnlich":
         case "MAENNLICH":
             return MAENNLICH;
         case "weiblich":

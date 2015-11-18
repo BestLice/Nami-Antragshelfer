@@ -1,8 +1,8 @@
 package nami.connector;
 
 /**
- * Beschreibt die möglichen Beitragsarten. Ein möglicher Stiftungseuro wird
- * ignoriert, weil er für die lokalen Anwendungen keine Rolle spielt.
+ * Beschreibt die mÃ¶glichen Beitragsarten. Ein mÃ¶glicher Stiftungseuro wird
+ * ignoriert, weil er fÃ¼r die lokalen Anwendungen keine Rolle spielt.
  * 
  * @author Fabian Lipp
  * 
@@ -14,17 +14,17 @@ public enum Beitragsart {
     VOLLER_BEITRAG,
 
     /**
-     * Familienermäßigung.
+     * FamilienermÃ¤ÃŸigung.
      */
     FAMILIEN_BEITRAG,
 
     /**
-     * Sozialermäßigung.
+     * SozialermÃ¤ÃŸigung.
      */
     SOZIALERMAESSIGUNG,
 
     /**
-     * Personen, die keinen Mitgliedsbeitrag bezahlen müssen.
+     * Personen, die keinen Mitgliedsbeitrag bezahlen mÃ¼ssen.
      */
     KEIN_BEITRAG;
 
@@ -32,7 +32,7 @@ public enum Beitragsart {
      * Setzt einen String in die entsprechende Beitragsart um.
      * 
      * @param str
-     *            String-Repräsentation der Beitragsart
+     *            String-ReprÃ¤sentation der Beitragsart
      * @return entsprechende Beitragsart; <code>null</code>, wenn keine
      *         Beitragsart angegeben ist
      */

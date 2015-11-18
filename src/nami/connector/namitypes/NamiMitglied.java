@@ -32,7 +32,7 @@ import com.google.gson.reflect.TypeToken;
  * 
  */
 @SuppressWarnings("unused")
-public class NamiMitglied extends NamiAbstractMitglied implements Comparable<NamiMitglied> {
+public class NamiMitglied extends NamiAbstractMitglied implements Comparable<NamiMitglied>{
     /**
      * Beschreibt die Bankverbindung eines Mitglieds.
      */
@@ -274,6 +274,11 @@ public class NamiMitglied extends NamiAbstractMitglied implements Comparable<Nam
 
         return str.toString();
     }
+    
+    @Override
+    public String toString(){
+    	return this.vorname + " " + this.nachname;
+    }
 
     /**
      * Holt den Datensatz eines Mitglieds aus NaMi.
@@ -342,216 +347,37 @@ public class NamiMitglied extends NamiAbstractMitglied implements Comparable<Nam
             return result.getId();
         }
     }
+
+	@Override
+	public int compareTo(NamiMitglied o) {
+		return this.toString().compareTo(o.toString());
+	}
+
+	public String getStufe() {
+		return stufe;
+	}
+
+	public String getGeburtsDatum() {
+		return geburtsDatum;
+	}
+
+	public String getPLZ() {
+		return plz;
+	}
+
+	public String getTelefon1() {
+		return telefon1;
+	}
 	
-	   //author Tobias Miosczka
+	public String getTelefon2() {
+		return telefon2;
+	}
 	
-
-		
-		/**
-		 * @return beitragsartenId
-		 */
-		public String getPLZ() {
-			return plz;
-		}
-		
-		/**   TODO: get this working
-		 * @return formattiertes alter
-		 
-		public String getAlterFormatiert() {
-			return geburtsDatumFormatted;
-		}
-		*/
-		
-		/**
-		 * @return getGeburtsDatum, yyyy-MM-dd HH:mm:ss
-		 */
-		public String getGeburtsDatum() {
-			return geburtsDatum;
-		}
-
-		/**
-		 * @return beitragsarten
-		 */
-		public String getBeitragsarten() {
-			return beitragsarten;
-		}
-		
-		/**
-		 * @return beitragsartenId
-		 */
-		public Collection<Integer> getBeitragsartenId() {
-			return beitragsartenId;
-		}
-
-		/**
-		 * @return statusId
-		 */
-		public String getStatusId() {
-			return statusId;
-		}
-
-
-		/**
-		 * @return kontoverbindung
-		 */
-		public KontoverbindungType getKontoverbindung() {
-			return kontoverbindung;
-		}
-
-		/**
-		 * @returnlastUpdated
-		 */
-		public String getLastUpdated() {
-			return lastUpdated;
-		}
-
-		/**
-		 * @return zahlungsweise
-		 */
-		public String getZahlungsweise() {
-			return zahlungsweise;
-		}
-
-		/**
-		 * @return geschlechtId
-		 */
-		public String getGeschlechtId() {
-			return geschlechtId;
-		}
-		
-		/**
-		 * @return konfession
-		 */
-		public String getKonfession() {
-			return konfession;
-		}
-
-		/**
-		 * @return konfessionId
-		 */
-		public String getKonfessionId() {
-			return konfessionId;
-		}
-
-		/**
-		 * @return zeitschriftenversand
-		 */
-		public boolean isZeitschriftenversand() {
-			return zeitschriftenversand;
-		}
-
-		/**
-		 * @return wiederverwendenFlag
-		 */
-		public boolean isWiederverwendenFlag() {
-			return wiederverwendenFlag;
-		}
-
-		/**
-		 * @return ersteTaetigkeit
-		 */
-		public String getErsteTaetigkeit() {
-			return ersteTaetigkeit;
-		}
-
-		/**
-		 * @return ersteTaetigkeitId
-		 */
-		public String getErsteTaetigkeitId() {
-			return ersteTaetigkeitId;
-		}
-
-		/**
-		 * @return ersteUntergliederung
-		 */
-		public String getErsteUntergliederung() {
-			return ersteUntergliederung;
-		}
-
-		/**
-		 * @return staatsangehoerigkeitId
-		 */
-		public String getStaatsangehoerigkeitId() {
-			return staatsangehoerigkeitId;
-		}
-
-		/**
-		 * @return staatsangehoerigkeit
-		 */
-		public String getStaatsangehoerigkeit() {
-			return staatsangehoerigkeit;
-		}
-
-		/**
-		 * @return staatsangehoerigkeitText
-		 */
-		public String getStaatsangehoerigkeitText() {
-			return staatsangehoerigkeitText;
-		}
-
-		/**
-		 * @return mglTypeId
-		 */
-		public String getMglTypeId() {
-			return mglTypeId;
-		}
-
-		/**
-		 * @return regionId
-		 */
-		public String getRegionId() {
-			return regionId;
-		}
-
-		/**
-		 * @return region
-		 */
-		public String getRegion() {
-			return region;
-		}
-
-		/**
-		 * @return landId
-		 */
-		public String getLandId() {
-			return landId;
-		}
-
-		/**
-		 * @return land
-		 */
-		public String getLand() {
-			return land;
-		}
-		
-		public String getTelefon1(){
-			return telefon1;
-		}
-
-		public String getTelefon2(){
-			return telefon2;
-		}
-		
-		public String getTelefon3(){
-			return telefon3;
-		}
-		
-		public String getTelefax(){
-			return telefax;
-		}
-		
-		@Override
-		public int compareTo(NamiMitglied other) {
-			return (getVorname() + getNachname()).compareTo(other.getVorname() + other.getNachname());
-		}
-		
-		@Override
-		public String toString(){
-			return getVorname() + " " + getNachname();
-		}
-		
-		public String getStufe() {
-			return stufe;
-		}
-		//author Tobias Miosczka end
+	public String getTelefon3() {
+		return telefon3;
+	}
+	
+	public String getTelefax() {
+		return telefax;
+	}
 }

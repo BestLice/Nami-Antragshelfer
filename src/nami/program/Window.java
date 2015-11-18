@@ -28,6 +28,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import nami.connector.Mitgliedstyp;
+import nami.connector.exception.NamiLoginException;
 import nami.connector.namitypes.NamiMitglied;
 import nami.program.applicationForms.WriterAntragLand;
 import nami.program.applicationForms.WriterAntragStadt_Dinslaken;
@@ -159,7 +160,7 @@ public class Window  implements  ActionListener, DocumentListener{
 		mntmExit.addActionListener(this);
 		mnNewMenu.add(mntmExit);
 		
-		JMenu mAntrag = new JMenu("AntrÃ¤ge");
+		JMenu mAntrag = new JMenu("Anträge");
 		menuBar.add(mAntrag);
 		
 		mntmAntragStadt = new JMenuItem("Antrag an Stadt");
@@ -248,7 +249,7 @@ public class Window  implements  ActionListener, DocumentListener{
 		pFilterOptions.add(pStufe);
 		pStufe.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		cWoelflinge = new JCheckBox("WÃ¶lflinge");
+		cWoelflinge = new JCheckBox("Wölflinge");
 		cWoelflinge.addActionListener(this);
 		cWoelflinge.setBackground(UIManager.getColor("CheckBox.light"));
 		cWoelflinge.setSelected(true);
@@ -343,7 +344,7 @@ public class Window  implements  ActionListener, DocumentListener{
 		lblMitglieder.setBounds(0, 10, 200, 25);
 		pListFiltered.add(lblMitglieder);
 		
-		bAdd = new JButton("HinzufÃ¼gen =>");
+		bAdd = new JButton("Hinzufügen =>");
 		bAdd.addActionListener(this);
 		bAdd.setBounds(10, 566, 178, 23);
 		pListFiltered.add(bAdd);
@@ -421,7 +422,7 @@ public class Window  implements  ActionListener, DocumentListener{
 		
 		dlmFiltered.removeAllElements();
 		for(NamiMitglied d : member){
-			boolean bIsWlf = "WÃ¶lfling".		equals(d.getStufe());
+			boolean bIsWlf = "Wölfling".		equals(d.getStufe());
 			boolean bIsJng = "Jungpfadfinder".	equals(d.getStufe());
 			boolean bIsPfd = "Pfadfinder".		equals(d.getStufe());
 			boolean bIsRvr = "Rover".			equals(d.getStufe());
@@ -482,8 +483,7 @@ public class Window  implements  ActionListener, DocumentListener{
 			updateLists();
 		}
 		if(source==bLogin||source==tfUsername||source==pfPassword){
-			program.login(tfUsername.getText(), String.copyValueOf(pfPassword.getPassword()));
-			program.loadData(program);
+			this.login();
 		}
 		if(source==mntmExit){
 			System.exit(0);
@@ -499,14 +499,14 @@ public class Window  implements  ActionListener, DocumentListener{
 		}
 		if(source==mntmAntragLand){			
 			try {
-				new WriterAntragLand(frmNami).run("Land_AusgefÃ¼llt.odt", program.getParticipants());
+				new WriterAntragLand(frmNami).run("Land_Ausgefüllt.odt", program.getParticipants());
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		}
 		if(source==mntmAntragStadt){
 			try {
-				new WriterAntragStadt_Dinslaken(frmNami).run("Stadt_AugefÃ¼llt.odt", program.getParticipants());
+				new WriterAntragStadt_Dinslaken(frmNami).run("Stadt_Augefüllt.odt", program.getParticipants());
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -518,6 +518,18 @@ public class Window  implements  ActionListener, DocumentListener{
 				e1.printStackTrace();
 			}
 		}
+	}
+
+	private void login() {
+		try{
+			program.login(tfUsername.getText(), String.copyValueOf(pfPassword.getPassword()));
+		} catch (NamiLoginException e) {
+			this.showPassResult(false, "");
+		} catch (IOException e) {
+			this.getProgressBar().setString("Keine Verbindung zur NaMi.");
+			e.printStackTrace();
+		}
+		program.loadData(program);
 	}
 
 	@Override

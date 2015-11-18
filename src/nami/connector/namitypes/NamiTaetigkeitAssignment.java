@@ -18,6 +18,7 @@ import com.google.gson.reflect.TypeToken;
  * @author Fabian Lipp
  * 
  */
+
 @SuppressWarnings("unused")
 public class NamiTaetigkeitAssignment {
     // Die folgenden Variablen stammen aus NaMi. Keinesfalls umbenennen.

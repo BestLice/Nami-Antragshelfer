@@ -8,7 +8,7 @@ package nami.connector;
  */
 public enum MitgliedStatus {
     // Die Werte des Enums entsprechen genau den Mitgliedsstatus-Konstanten aus
-    // NaMi (müssen so von der toString-Methode geliefert werden, da sie
+    // NaMi (m�ssen so von der toString-Methode geliefert werden, da sie
     // beispielsweise direkt in Suchanfragen eingefügt werden)
     /**
      * Mitglied ist aktiv.

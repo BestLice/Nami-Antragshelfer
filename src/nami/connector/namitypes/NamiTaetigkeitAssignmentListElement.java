@@ -14,7 +14,6 @@ import org.apache.http.client.methods.HttpGet;
 
 import com.google.gson.reflect.TypeToken;
 
-// TODO: Implementiere hascode (?)
 @SuppressWarnings("unused")
 public class NamiTaetigkeitAssignmentListElement implements Comparable<NamiTaetigkeitAssignmentListElement> {
     private static final int MAX_TAETIGKEITEN = 1000;
@@ -28,7 +27,7 @@ public class NamiTaetigkeitAssignmentListElement implements Comparable<NamiTaeti
         private String aktivBis;
         private String caeaGroupForGf;
         private String taetigkeit;
-		private String rowCssClass;
+        private String rowCssClass;
         private String mitglied;
     }
 

@@ -8,7 +8,7 @@ package nami.connector;
  */
 public enum Mitgliedstyp {
     // Die Werte des Enums entsprechen genau den Mitgliedstyp-Konstanten aus
-    // NaMi (müssen so von der toString-Methode geliefert werden, da sie
+    // NaMi (m�ssen so von der toString-Methode geliefert werden, da sie
     // beispielsweise direkt in Suchanfragen eingefügt werden)
     /**
      * Normale Mitgliedschaft.

@@ -458,13 +458,6 @@ public class NamiConnector {
         return gson.toJson(o);
     }
 
-    /**
-     * Gibt zurück, ob der Connector bereits verbunden wurde.
-     * 
-     * @author Tobias
-     * 
-     * @return Bool'scher wert ob Connector bereits verbunden wurde,
-     */
 	public boolean getIsAuthenticated() {
 		return isAuthenticated;
 	}

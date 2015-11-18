@@ -14,7 +14,7 @@ import org.apache.http.client.methods.HttpGet;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * Beschreibt einen Eintrag aus einem Enum in NaMi. Zum Beispiel eine TÃ¤tigkeit
+ * Beschreibt einen Eintrag aus einem Enum in NaMi. Zum Beispiel eine Tätigkeit
  * oder eine Untergliederung.
  * 
  * @author Fabian Lipp
@@ -26,11 +26,11 @@ public class NamiEnum {
     private Integer id;
 
     /**
-     * Liest alle verfÃ¼gbaren TÃ¤tigkeiten aus NaMi aus.
+     * Liest alle verfügbaren TÃ¤tigkeiten aus NaMi aus.
      * 
      * @param con
      *            Verbindung zum NaMi-Server.
-     * @return Liste der verfÃ¼gbaren TÃ¤tigkeiten
+     * @return Liste der verfÃ¼gbaren Tätigkeiten
      * @throws NamiApiException
      *             API-Fehler beim Zugriff auf NaMi
      * @throws IOException
@@ -51,11 +51,11 @@ public class NamiEnum {
     }
 
     /**
-     * Liest alle verfÃ¼gbaren Untergliederungen (Stufe/Abteilung) aus NaMi aus.
+     * Liest alle verfügbaren Untergliederungen (Stufe/Abteilung) aus NaMi aus.
      * 
      * @param con
      *            Verbindung zum NaMi-Server.
-     * @return Liste der verfÃ¼gbaren Untergliederungen
+     * @return Liste der verfügbaren Untergliederungen
      * @throws NamiApiException
      *             API-Fehler beim Zugriff auf NaMi
      * @throws IOException

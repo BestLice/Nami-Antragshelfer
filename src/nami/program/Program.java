@@ -64,19 +64,13 @@ public class Program{
 	 * 				valid username (membership number)
 	 * @param pass 
 	 * 				valid password
+	 * @throws IOException 
+	 * @throws NamiLoginException 
 	 */
-	public void login(String user, String pass){
+	public void login(String user, String pass) throws NamiLoginException, IOException{
 		NamiCredentials credentials = new NamiCredentials(user, pass);
 		con = new NamiConnector(NamiServer.LIVESERVER, credentials);
-		try {
-			con.namiLogin();
-			window.showPassResult(true, user);
-		} catch (NamiLoginException e) {
-			window.showPassResult(false, user);
-		} catch (IOException e) {
-			window.getProgressBar().setString("Keine Verbindung zur Nami.");
-			e.printStackTrace();
-		}
+		con.namiLogin();
 	}
 	
 	
@@ -87,7 +81,7 @@ public class Program{
 	 * @param progressOut
 	 * 				JProgressbar to display the progress			
 	 */
-	public void loadData(final Program program){		
+	public void loadData(final Program program){
 		if(!con.getIsAuthenticated()){
 			return;
 		}

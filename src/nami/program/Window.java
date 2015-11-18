@@ -25,6 +25,8 @@ import java.awt.GridLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 
 import nami.connector.Mitgliedstyp;
@@ -53,7 +55,7 @@ import java.util.List;
 public class Window  implements  ActionListener, DocumentListener{
 
 	private static final int VERSION_MAJOR = 2;
-	private static final int VERSION_MINOR = 1;
+	private static final int VERSION_MINOR = 2;
 	
 	private JFrame 		frmNami;
 	private JTextField 	tfFirstName,
@@ -322,10 +324,26 @@ public class Window  implements  ActionListener, DocumentListener{
 		lblFilter.setBounds(64, 0, 46, 25);
 		pFilterOptions.add(lblFilter);
 		
-		JLabel lCopyRight = new JLabel("(c) Tobias Miosczka 2013 - 2015");
-		lCopyRight.setFont(new Font("Arial", Font.PLAIN, 11));
-		lCopyRight.setBounds(10, 576, 178, 14);
-		pOptions.add(lCopyRight);
+		JLabel lblCopyRight = new JLabel("(c) Tobias Miosczka 2013 - 2015");
+		lblCopyRight.addMouseListener(new MouseListener() {
+			int c = 0;
+			@Override public void mouseClicked(MouseEvent e) {
+				if(c<10){
+					++c;
+				}else{
+					c=0;
+					lblCopyRight.setText("(c) ToasterGuy         2013 - 2015");
+				}
+			}
+
+			@Override public void mouseEntered(MouseEvent arg0) {}
+			@Override public void mouseExited(MouseEvent arg0) {}
+			@Override public void mouseReleased(MouseEvent arg0) {}
+			@Override public void mousePressed(MouseEvent arg0) {}
+		});
+		lblCopyRight.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblCopyRight.setBounds(10, 576, 178, 14);
+		pOptions.add(lblCopyRight);
 		
 		progressBar = new JProgressBar();
 		progressBar.setStringPainted(true);
@@ -394,13 +412,13 @@ public class Window  implements  ActionListener, DocumentListener{
 	 */
 	public void showPassResult(boolean right, String user){
 		if(right){
-			tfUsername.setBackground(Color.GREEN);
-			pfPassword.setBackground(Color.GREEN);
+			tfUsername.setBackground(Color.decode("0x009900"));
+			pfPassword.setBackground(Color.decode("0x009900"));
 			progressBar.setString("");
 			lbUser.setText("Angemeldet als "+user);
 		}else{
-			tfUsername.setBackground(Color.RED);
-			pfPassword.setBackground(Color.RED);
+			tfUsername.setBackground(Color.decode("0xCC0000"));
+			pfPassword.setBackground(Color.decode("0xCC0000"));
 			progressBar.setString("Falscher Name/Passwort.");
 		}
 	}
@@ -521,15 +539,22 @@ public class Window  implements  ActionListener, DocumentListener{
 	}
 
 	private void login() {
+		String user = tfUsername.getText();
+		String pass = String.copyValueOf(pfPassword.getPassword());
 		try{
-			program.login(tfUsername.getText(), String.copyValueOf(pfPassword.getPassword()));
+			program.login(user, pass);
 		} catch (NamiLoginException e) {
 			this.showPassResult(false, "");
+			e.printStackTrace();
+			return;
 		} catch (IOException e) {
 			this.getProgressBar().setString("Keine Verbindung zur NaMi.");
 			e.printStackTrace();
+			return;
 		}
 		program.loadData(program);
+		bLogin.setEnabled(false);
+		showPassResult(true, user);
 	}
 
 	@Override
@@ -545,5 +570,10 @@ public class Window  implements  ActionListener, DocumentListener{
 	@Override
 	public void removeUpdate(DocumentEvent e) {
 		updateLists();
+	}
+
+	public void loaderUpdate(int percent, String string) {
+		progressBar.setValue(percent);
+		progressBar.setString(string);
 	}
 }

@@ -1,19 +1,17 @@
 package nami.program;
 
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.swing.SwingUtilities;
-
 import nami.connector.NamiConnector;
 import nami.connector.NamiServer;
 import nami.connector.credentials.NamiCredentials;
 import nami.connector.exception.NamiLoginException;
 import nami.connector.namitypes.NamiMitglied;
+import nami.program.NamiDataLoader.NamiDataLoaderHandler;
 
 /**
  * Program
@@ -21,9 +19,9 @@ import nami.connector.namitypes.NamiMitglied;
  * @author Tobias Miosczka
  *
  */
-public class Program{
+public class Program implements NamiDataLoaderHandler{
 	
-	private NamiConnector 	con;
+	private NamiConnector 	connector;
 	private List<NamiMitglied> member, participants;
 	private Window window;
 	
@@ -69,8 +67,8 @@ public class Program{
 	 */
 	public void login(String user, String pass) throws NamiLoginException, IOException{
 		NamiCredentials credentials = new NamiCredentials(user, pass);
-		con = new NamiConnector(NamiServer.LIVESERVER, credentials);
-		con.namiLogin();
+		connector = new NamiConnector(NamiServer.LIVESERVER, credentials);
+		connector.namiLogin();
 	}
 	
 	
@@ -82,19 +80,14 @@ public class Program{
 	 * 				JProgressbar to display the progress			
 	 */
 	public void loadData(final Program program){
-		if(!con.getIsAuthenticated()){
+		if(!connector.getIsAuthenticated()){
 			return;
 		}
 		member.clear();
 		participants.clear();
-		
-		SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-              DataLoader loader=new DataLoader(program);
-              loader.execute();  
-            }
-        });		
+				
+		NamiDataLoader dl = new NamiDataLoader(connector, this);
+		dl.start();
 	}
 	
 	
@@ -164,12 +157,15 @@ public class Program{
 	public List<NamiMitglied> getParticipants(){
 		return participants;
 	}
-	
-	public Window getWindow(){
-		return window;
+
+	@Override
+	public void update(int percent, NamiMitglied e) {
+		window.loaderUpdate(percent, "Lädt "+ e.getVorname() + " " + e.getNachname() + " " + percent + "%");
+        member.add(e);	
 	}
 
-	public NamiConnector getConnection() {
-		return con;
+	@Override
+	public void done(long time) {
+		window.loaderUpdate(100, "Fertig nach " + time / 1000 + " Sekunden.");
 	}
 }

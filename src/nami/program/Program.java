@@ -21,6 +21,7 @@ import nami.program.NamiDataLoader.NamiDataLoaderHandler;
  */
 public class Program implements NamiDataLoaderHandler{
 	
+	
 	private NamiConnector 	connector;
 	private List<NamiMitglied> member, participants;
 	private Window window;
@@ -50,7 +51,6 @@ public class Program implements NamiDataLoaderHandler{
 	 */
 	public Program(){
 		window = new Window(this);
-		window.getFrame().setVisible(true);
 		member = new ArrayList<NamiMitglied>();
 		participants = new ArrayList<NamiMitglied>();
 	}

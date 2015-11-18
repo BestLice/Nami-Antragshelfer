@@ -350,7 +350,7 @@ public class NamiMitglied extends NamiAbstractMitglied implements Comparable<Nam
 
 	@Override
 	public int compareTo(NamiMitglied o) {
-		return this.toString().compareTo(o.toString());
+		return this.toString().toUpperCase().compareTo(o.toString().toUpperCase());
 	}
 
 	public String getStufe() {

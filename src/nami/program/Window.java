@@ -32,12 +32,12 @@ import java.awt.event.ActionEvent;
 import nami.connector.Mitgliedstyp;
 import nami.connector.exception.NamiLoginException;
 import nami.connector.namitypes.NamiMitglied;
+import nami.program.Windows.WindowChangelog;
+import nami.program.Windows.WindowHelp;
+import nami.program.Windows.WindowLicence;
 import nami.program.applicationForms.WriterAntragLand;
 import nami.program.applicationForms.WriterAntragStadt_Dinslaken;
 import nami.program.applicationForms.WriterNotfallliste;
-import nami.program.subWindows.WindowChangelog;
-import nami.program.subWindows.WindowHelp;
-import nami.program.subWindows.WindowLicence;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -101,15 +101,6 @@ public class Window  implements  ActionListener, DocumentListener{
 	private Program program;
 	
 	/**
-	 * returns the GUIs JFrame
-	 * 
-	 * @return JFrame of the GUI
-	 */
-	public JFrame getFrame(){
-		return frmNami;
-	}
-	
-	/**
 	 * returns the GUIs JProgressBar 
 	 * 
 	 * @return GUIs JProgressBar to display progress
@@ -127,6 +118,7 @@ public class Window  implements  ActionListener, DocumentListener{
 	public Window(Program program) {
 		this.program = program;
 		initialize();
+		frmNami.setVisible(true);
 	}
 
 	/**
@@ -575,5 +567,6 @@ public class Window  implements  ActionListener, DocumentListener{
 	public void loaderUpdate(int percent, String string) {
 		progressBar.setValue(percent);
 		progressBar.setString(string);
+		updateLists();
 	}
 }

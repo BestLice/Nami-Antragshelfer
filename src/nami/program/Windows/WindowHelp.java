@@ -1,4 +1,4 @@
-package nami.program.subWindows;
+package nami.program.Windows;
 
 import java.awt.BorderLayout;
 

@@ -13,12 +13,6 @@ import nami.connector.exception.NamiLoginException;
 import nami.connector.namitypes.NamiMitglied;
 import nami.program.NamiDataLoader.NamiDataLoaderHandler;
 
-/**
- * Program
- * 
- * @author Tobias Miosczka
- *
- */
 public class Program implements NamiDataLoaderHandler{
 	
 	
